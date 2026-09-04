@@ -6,7 +6,7 @@
       "url": "fixtures/pages/semantic.html",
       "licence": "MIT (project-owned)",
       "idiom": "semantic-html",
-      "capturedAt": "2026-09-04T15:01:55.619Z",
+      "capturedAt": "2026-09-04T15:13:33.850Z",
       "sha256": "37e2ec2e7fa62cea6ac68ee5b2573dced03c6ba3b6b40939bd2a383f8eb9a54f"
     },
     {
@@ -15,7 +15,7 @@
       "url": "fixtures/pages/utility-css.html",
       "licence": "MIT (project-owned)",
       "idiom": "utility-css",
-      "capturedAt": "2026-09-04T15:01:56.296Z",
+      "capturedAt": "2026-09-04T15:13:34.384Z",
       "sha256": "9308b87853b1ad17829e0518d13ce85c58fa81573a28ca9389fe89ff0390848c"
     },
     {
@@ -24,7 +24,7 @@
       "url": "fixtures/pages/css-in-js.html",
       "licence": "MIT (project-owned)",
       "idiom": "css-in-js",
-      "capturedAt": "2026-09-04T15:01:56.913Z",
+      "capturedAt": "2026-09-04T15:13:34.896Z",
       "sha256": "cdd880c01ce5cf4736e7b29261d2c398344e267f778c0a68aff6511ad4738ab4"
     },
     {
@@ -33,7 +33,7 @@
       "url": "fixtures/pages/data-grid.html",
       "licence": "MIT (project-owned)",
       "idiom": "data-grid",
-      "capturedAt": "2026-09-04T15:01:57.385Z",
+      "capturedAt": "2026-09-04T15:13:35.365Z",
       "sha256": "0577fffbbfbcdea2255b685acf966ace10e86b79779482b51cbfbe70e0fd8aaf"
     },
     {
@@ -42,7 +42,7 @@
       "url": "fixtures/pages/deep-nesting.html",
       "licence": "MIT (project-owned)",
       "idiom": "deep-nesting",
-      "capturedAt": "2026-09-04T15:01:57.752Z",
+      "capturedAt": "2026-09-04T15:13:35.712Z",
       "sha256": "c833f93865eb2cdcdec2c3384e05a85e23a9e5bf40ac3284e8c496302784342f"
     },
     {
@@ -51,7 +51,7 @@
       "url": "fixtures/pages/shadow-dom.html",
       "licence": "MIT (project-owned)",
       "idiom": "shadow-dom",
-      "capturedAt": "2026-09-04T15:01:58.086Z",
+      "capturedAt": "2026-09-04T15:13:36.072Z",
       "sha256": "8b87a1ac8361cd295232850cd1e8c92ba953f60f336b6ce75e975312a4476bfb"
     }
   ]
