@@ -1,0 +1,366 @@
+{
+  "entries": [
+    "resources/src@4f3d79dc075054290339c87d8f2c01ad31b4b734.txt",
+    "resources/0837aa071d8d72f15522db69ac8f4acca6016b47",
+    "test.trace",
+    "0-trace.trace",
+    "0-trace.network",
+    "resources/page@e912f1e80440e949a9d8cc696a1b8a04-1788523292839.jpeg",
+    "resources/page@e912f1e80440e949a9d8cc696a1b8a04-1788523292852.jpeg",
+    "resources/5415f64b78d867e099dc4c090ccfe6d3b99484bd.html",
+    "0-trace.stacks"
+  ],
+  "checks": {
+    "hasSelector": true,
+    "hasError": true,
+    "hasApiName": true,
+    "hasSnapshot": true,
+    "hasTitle": true,
+    "hasSdkLanguage": true
+  },
+  "types": [
+    {
+      "type": "context-options",
+      "count": 2,
+      "keys": [
+        "version",
+        "type",
+        "origin",
+        "browserName",
+        "playwrightVersion",
+        "options",
+        "platform",
+        "wallTime",
+        "monotonicTime",
+        "sdkLanguage",
+        "testTimeout",
+        "testIdAttributeName",
+        "contextId",
+        "title"
+      ],
+      "sample": {
+        "version": 8,
+        "type": "context-options",
+        "origin": "library",
+        "browserName": "chromium",
+        "playwrightVersion": "1.62.1",
+        "options": {
+          "noDefaultViewport": false,
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "ignoreHTTPSErrors": false,
+          "javaScriptEnabled": true,
+          "bypassCSP": false,
+          "locale": "en-US",
+          "offline": false,
+          "isMobile": false,
+          "hasTouch": false,
+          "colorScheme": "light",
+          "acceptDownloads": "accept",
+          "serviceWorkers": "allow",
+          "selectorEngines": [],
+          "testIdAttributeName": "data-testid"
+        },
+        "platform": "win32",
+        "wallTime": 1788523292712,
+        "monotonicTime": 1610.058,
+        "sdkLanguage": "javascript",
+        "testIdAttributeName": "data-testid",
+        "contextId": "browser-context@ebab5a8885561a7ce3264843d6c98e87",
+        "title": "drift.spec.ts:21 › shadow dom target"
+      }
+    },
+    {
+      "type": "before",
+      "count": 19,
+      "keys": [
+        "type",
+        "callId",
+        "stepId",
+        "startTime",
+        "class",
+        "method",
+        "title",
+        "params",
+        "stack",
+        "parentId",
+        "pageId",
+        "beforeSnapshot"
+      ],
+      "sample": {
+        "type": "before",
+        "callId": "pw:api@38",
+        "stepId": "pw:api@38",
+        "parentId": "fixture@37",
+        "startTime": 1595.964,
+        "class": "Test",
+        "method": "pw:api",
+        "title": "Create context",
+        "params": {
+          "selectorEngines": "[]",
+          "testIdAttributeName": "data-testid",
+          "acceptDownloads": "accept",
+          "bypassCSP": "false",
+          "colorScheme": "light",
+          "hasTouch": "false",
+          "ignoreHTTPSErrors": "false",
+          "isMobile": "false",
+          "javaScriptEnabled": "true",
+          "locale": "en-US",
+          "offline": "false",
+          "viewport": "Object",
+          "serviceWorkers": "allow",
+          "noDefaultViewport": "false",
+          "extraHTTPHeaders": "undefined",
+          "storageState": "undefined",
+          "reducedMotion": "undefined",
+          "forcedColors": "undefined",
+          "contrast": "undefined",
+          "clientCertificates": "undefined"
+        },
+        "stack": []
+      }
+    },
+    {
+      "type": "after",
+      "count": 19,
+      "keys": [
+        "type",
+        "callId",
+        "endTime",
+        "annotations",
+        "error",
+        "attachments",
+        "result",
+        "afterSnapshot"
+      ],
+      "sample": {
+        "type": "after",
+        "callId": "call@10",
+        "endTime": 4728.39,
+        "error": {
+          "message": "Timeout 3000ms exceeded.",
+          "stack": "TimeoutError: Timeout 3000ms exceeded.\n    at _ProgressController.run (D:\\Project\\Mender\\fixtures\\ts-suite\\node_modules\\playwright-core\\lib\\coreBundle.js:12135:32)\n    at DispatcherConnection.dispatch (D:\\Project\\Mender\\fixtures\\ts-suite\\node_modules\\playwright-core\\lib\\coreBundle.js:18775:44)",
+          "name": "TimeoutError"
+        },
+        "afterSnapshot": "after@call@10"
+      }
+    },
+    {
+      "type": "error",
+      "count": 1,
+      "keys": [
+        "type",
+        "message",
+        "stack"
+      ],
+      "sample": {
+        "type": "error",
+        "message": "TimeoutError: locator.click: Timeout 3000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#save-btn-RENAMED')\u001b[22m\n",
+        "stack": [
+          {
+            "file": "D:\\Project\\Mender\\fixtures\\ts-suite\\tests\\drift.spec.ts",
+            "line": 28,
+            "column": 43
+          }
+        ]
+      }
+    },
+    {
+      "type": "event",
+      "count": 1,
+      "keys": [
+        "type",
+        "time",
+        "class",
+        "method",
+        "params"
+      ],
+      "sample": {
+        "type": "event",
+        "time": 1683.361,
+        "class": "BrowserContext",
+        "method": "page",
+        "params": {
+          "pageId": "page@e912f1e80440e949a9d8cc696a1b8a04"
+        }
+      }
+    },
+    {
+      "type": "frame-snapshot",
+      "count": 4,
+      "keys": [
+        "type",
+        "snapshot"
+      ],
+      "sample": {
+        "type": "frame-snapshot",
+        "snapshot": {
+          "callId": "call@8",
+          "snapshotName": "after@call@8",
+          "pageId": "page@e912f1e80440e949a9d8cc696a1b8a04",
+          "frameId": "frame@3d824c502f79dbed2abe06438ff4be0e",
+          "frameUrl": "file:///D:/Project/Mender/fixtures/pages/shadow-dom.html",
+          "doctype": "html",
+          "html": [
+            "HTML",
+            {
+              "lang": "en"
+            },
+            [
+              "HEAD",
+              {},
+              [
+                "BASE",
+                {
+                  "href": "file:///D:/Project/Mender/fixtures/pages/shadow-dom.html"
+                }
+              ],
+              "\n  ",
+              [
+                "META",
+                {
+                  "charset": "utf-8"
+                }
+              ],
+              "\n  ",
+              [
+                "TITLE",
+                {},
+                "Shadow DOM — Login"
+              ],
+              "\n"
+            ],
+            "\n",
+            [
+              "BODY",
+              {
+                "__playwright_custom_elements__": "login-form"
+              },
+              "\n  ",
+              [
+                "MAIN",
+                {},
+                "\n    ",
+                [
+                  "H1",
+                  {},
+                  "Sign in"
+                ],
+                "\n    ",
+                "\n    ",
+                [
+                  "LOGIN-FORM",
+                  {},
+                  [
+                    "template",
+                    {
+                      "__playwright_shadow_root_": "open"
+                    },
+                    "\n          ",
+                    [
+                      "FORM",
+                      {},
+                      "\n            ",
+                      [
+                        "INPUT",
+                        {
+                          "__playwright_value_": "",
+                          "name": "username",
+                          "type": "text",
+                          "placeholder": "Username"
+                        }
+                      ],
+                      "\n            ",
+                      [
+                        "INPUT",
+                        {
+                          "__playwright_value_": "",
+                          "name": "password",
+                          "type": "password",
+                          "placeholder": "Password"
+                        }
+                      ],
+                      "\n            ",
+                      [
+                        "BUTTON",
+                        {
+                          "id": "save-btn",
+                          "type": "submit"
+                        },
+                        "Save changes"
+                      ],
+                      "\n            ",
+                      [
+                        "BUTTON",
+                        {
+                          "id": "cancel-btn",
+                          "type": "button"
+                        },
+                        "Cancel"
+                      ],
+                      "\n          "
+                    ],
+                    "\n        "
+                  ]
+                ],
+                "\n  "
+              ],
+              "\n  ",
+              "\n\n\n"
+            ]
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "timestamp": 1721.402,
+          "wallTime": 1788523292823,
+          "collectionTime": 2.299999952316284,
+          "resourceOverrides": [],
+          "isMainFrame": true
+        }
+      }
+    },
+    {
+      "type": "log",
+      "count": 2,
+      "keys": [
+        "type",
+        "callId",
+        "time",
+        "message"
+      ],
+      "sample": {
+        "type": "log",
+        "callId": "call@8",
+        "time": 1691.185,
+        "message": "navigating to \"file:///D:/Project/Mender/fixtures/pages/shadow-dom.html\", waiting until \"load\""
+      }
+    },
+    {
+      "type": "screencast-frame",
+      "count": 2,
+      "keys": [
+        "type",
+        "pageId",
+        "sha1",
+        "width",
+        "height",
+        "timestamp",
+        "frameSwapWallTime"
+      ],
+      "sample": {
+        "type": "screencast-frame",
+        "pageId": "page@e912f1e80440e949a9d8cc696a1b8a04",
+        "sha1": "page@e912f1e80440e949a9d8cc696a1b8a04-1788523292839.jpeg",
+        "width": 1280,
+        "height": 720,
+        "timestamp": 1737.071,
+        "frameSwapWallTime": 1788523292836.501
+      }
+    }
+  ]
+}

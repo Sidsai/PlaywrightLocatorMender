@@ -17,3 +17,13 @@ test('strict mode violation', async ({ page }) => {
   // Matches all 40 row-action buttons — this is the "strict_violation" failureKind.
   await page.locator('button.row-action').click({ timeout: 3000 });
 });
+
+test('shadow dom target', async ({ page }) => {
+  await page.goto(pathToFileURL(resolve('../pages/shadow-dom.html')).href);
+  // The real #save-btn lives inside an open shadow root (see fixtures/pages/
+  // shadow-dom.html). This selector deliberately misses it, generating a timeout
+  // failure whose trace we then inspect (Task 10) to determine whether the
+  // frame-snapshot captures shadow content at all — PRD §9 excludes shadow DOM
+  // from v1 unless capture is uniform across bindings.
+  await page.locator('#save-btn-RENAMED').click({ timeout: 3000 });
+});
