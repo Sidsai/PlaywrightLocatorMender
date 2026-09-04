@@ -1,0 +1,63 @@
+name: 'Mender'
+description: 'Proposes locator repairs for a broken Playwright selector from a failed run''s trace.zip'
+branding:
+  icon: 'tool'
+  color: 'blue'
+
+inputs:
+  trace:
+    description: 'Glob pattern for trace.zip file(s) to analyse'
+    required: true
+  mode:
+    description: 'Report mode: dry-run (default, report-only), patch, pr, or ci'
+    required: false
+    default: 'dry-run'
+  provider-tier:
+    description: 'Reranker tier: 0 (heuristics only, default), 1 (local), 2 (free-hosted), 3 (paid, opt-in only — never selected implicitly)'
+    required: false
+    default: '0'
+  provider-base-url:
+    description: 'Base URL for tiers 1-3 (e.g. http://localhost:11434 for Ollama)'
+    required: false
+  provider-model:
+    description: 'Model name for tiers 1-3'
+    required: false
+  margin-threshold:
+    description: 'Override the shipped margin threshold (corpus-derived default: 0.06)'
+    required: false
+  confidence-threshold:
+    description: 'Override the shipped confidence threshold (pre-corpus default: 0.85) — only meaningful with provider-tier >= 1'
+    required: false
+
+outputs:
+  proposal-count:
+    description: 'Number of proposals made across all matched traces'
+  decline-count:
+    description: 'Number of declines across all matched traces'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Mender
+      shell: bash
+      run: npm install --no-save playwright-mender
+
+    - name: Run Mender
+      shell: bash
+      env:
+        MENDER_PROVIDER_TIER: ${{ inputs.provider-tier }}
+        MENDER_PROVIDER_BASE_URL: ${{ inputs.provider-base-url }}
+        MENDER_PROVIDER_MODEL: ${{ inputs.provider-model }}
+        MENDER_MARGIN_THRESHOLD: ${{ inputs.margin-threshold }}
+        MENDER_CONFIDENCE_THRESHOLD: ${{ inputs.confidence-threshold }}
+      run: |
+        npx playwright-mender repair \
+          --trace "${{ inputs.trace }}" \
+          $( [ "${{ inputs.mode }}" = "patch" ] && echo "--patch" ) \
+          --json > mender-output.json
+        cat mender-output.json
+
+    # Default mode is report-only (TRD §10) — patch/pr/ci are opt-in via the
+    # `mode` input. --pr and --ci wiring is left to the calling workflow (they
+    # need repo write/PR-comment permissions this composite action does not
+    # assume), documented in README.md rather than embedded here.
