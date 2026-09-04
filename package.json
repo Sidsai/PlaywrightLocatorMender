@@ -1,0 +1,17 @@
+{
+  "name": "mender-monorepo",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "engines": { "node": ">=20.18.0" },
+  "scripts": {
+    "build": "tsc --build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "@types/node": "^20.16.0"
+  }
+}

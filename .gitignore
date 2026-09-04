@@ -1,0 +1,16 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.mender-cache/
+coverage/
+# Java
+target/
+.gradle/
+build/
+# Python
+.venv/
+__pycache__/
+*.pyc
+# Playwright
+test-results/
+playwright-report/
