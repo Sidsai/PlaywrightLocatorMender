@@ -18,6 +18,44 @@ function stringSimilarity(a: string, b: string): number {
 }
 
 /**
+ * Similarity tuned for identifier values (id/data-testid), not general text.
+ * Plain normalised edit distance treats an appended suffix as damage proportional
+ * to the WHOLE string's length, which badly under-scores the single most common
+ * real-world id-drift pattern: a build tool or framework appends a hash/counter
+ * suffix to an otherwise-unchanged id (`save-btn` -> `save-btn-a1b2c3`,
+ * `save-btn-renamed-5`, ...). Found via Task 39's real-corpus sweep: an id
+ * (`cancel-btn`) that merely happened to share a generic "-btn" suffix with the
+ * broken selector's id (`save-btn`) scored HIGHER via plain edit distance than the
+ * actual renamed target (`save-btn-renamed-5`), because Levenshtein normalises by
+ * the longer string's full length and doesn't recognise "one string is a prefix of
+ * the other" as the strong signal it is. This produced a genuine 0% repair rate for
+ * mutation class M1 — see AI/DECISION.md D-023.
+ *
+ * Prefix/suffix containment is checked FIRST and, when present, dominates: scored
+ * by how much of the longer string the shared prefix/suffix covers, which
+ * correctly favours "save-btn-renamed-5" (prefix covers 8/19 chars, but is an
+ * unbroken structural prefix) over a same-length coincidental suffix match on an
+ * unrelated word. Falls back to plain edit-distance similarity when neither string
+ * contains the other.
+ */
+function identifierSimilarity(a: string, b: string): number {
+  if (a === b) return 1;
+  if (a.length === 0 || b.length === 0) return 0;
+  if (a.startsWith(b) || b.startsWith(a) || a.endsWith(b) || b.endsWith(a)) {
+    const shorter = Math.min(a.length, b.length);
+    const longer = Math.max(a.length, b.length);
+    // Scaled into [0.5, 1.0] rather than a flat floor — a flat floor (tried first)
+    // can exactly TIE a coincidental non-containment match at the same numeric
+    // value (found in testing: both landed on 0.6), which fails to break the tie
+    // in containment's favour at all. This formula guarantees containment always
+    // scores strictly higher than the 0.5 baseline, scaling up with how much of
+    // the longer string the shared prefix/suffix actually covers.
+    return 0.5 + 0.5 * (shorter / longer);
+  }
+  return stringSimilarity(a, b);
+}
+
+/**
  * TRD §5 feature 1: shared data-testid/id tokens, edit distance on values. Compares
  * the broken selector's id/testid against the candidate's, in that priority order
  * (testid is a stronger, more deliberate stability signal than id when both are
@@ -27,10 +65,10 @@ function stringSimilarity(a: string, b: string): number {
  */
 export function attributeOverlap(selector: ParsedSelector, candidate: Candidate): number {
   if (selector.testId && candidate.attrs['data-testid']) {
-    return stringSimilarity(selector.testId, candidate.attrs['data-testid']);
+    return identifierSimilarity(selector.testId, candidate.attrs['data-testid']);
   }
   if (selector.id && candidate.attrs.id) {
-    return stringSimilarity(selector.id, candidate.attrs.id);
+    return identifierSimilarity(selector.id, candidate.attrs.id);
   }
   return 0;
 }

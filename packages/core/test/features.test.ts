@@ -33,6 +33,15 @@ describe('attributeOverlap', () => {
     const noAttrs = mk({ attrs: {} });
     expect(attributeOverlap(parsed, noAttrs)).toBe(0);
   });
+
+  it('a genuine prefix-preserving rename outscores an unrelated id with a coincidental shared suffix (D-023)', () => {
+    // Found via Task 39's real-corpus sweep: this exact case produced a 0% M1
+    // repair rate before identifierSimilarity's containment check was added.
+    const parsed = parseSelector('#save-btn');
+    const renamed = mk({ attrs: { id: 'save-btn-renamed-5' } }); // the true, mutated target
+    const coincidental = mk({ attrs: { id: 'cancel-btn' } }); // shares only "-btn"
+    expect(attributeOverlap(parsed, renamed)).toBeGreaterThan(attributeOverlap(parsed, coincidental));
+  });
 });
 
 describe('roleMatch', () => {
