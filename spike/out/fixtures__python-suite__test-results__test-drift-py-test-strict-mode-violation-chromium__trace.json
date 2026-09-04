@@ -1,0 +1,1870 @@
+{
+  "entries": [
+    "trace.trace",
+    "trace.network",
+    "resources/page@fb27669123b7b4e1b7bb76f123e0d34f-1788522962151.jpeg",
+    "resources/page@fb27669123b7b4e1b7bb76f123e0d34f-1788522962189.jpeg",
+    "resources/4559634b93a1fc9a56d42a4e8e6954c323a906cf.html",
+    "trace.stacks",
+    "resources/src@9d373fa5028b5d420b74e5da5db5f1e8191411bb.txt",
+    "resources/src@e022d8156e5f48706ef606d9d0dc7baa0a991c1a.txt",
+    "resources/src@936ddab764135c68207e31a9d7b69edbc0e6d9a1.txt",
+    "resources/src@2725fc7eed6da316f3d7147f01ddb817882f9b3b.txt",
+    "resources/src@26a7172aa4513fac26698ba8be3aed2068388ee2.txt",
+    "resources/src@e050bd9cdf9a381fc77b9c40939ff0991b52e395.txt",
+    "resources/src@03899c7b5512380665cab52dce94c08ae0abdb88.txt",
+    "resources/src@5c509778fc8549688b98a880ed78f003fa861bd2.txt",
+    "resources/src@7381cf291637336fbf20810df2807b0061e18499.txt",
+    "resources/src@e1e56a8de28a016b79d7d214b79fae89c64749ed.txt",
+    "resources/src@28dd102177273e479cba5ebc93ecfc024d0dd93c.txt"
+  ],
+  "checks": {
+    "hasSelector": true,
+    "hasError": true,
+    "hasApiName": true,
+    "hasSnapshot": true,
+    "hasTitle": true,
+    "hasSdkLanguage": true
+  },
+  "types": [
+    {
+      "type": "context-options",
+      "count": 1,
+      "keys": [
+        "version",
+        "type",
+        "origin",
+        "browserName",
+        "playwrightVersion",
+        "options",
+        "platform",
+        "wallTime",
+        "monotonicTime",
+        "sdkLanguage",
+        "testIdAttributeName",
+        "contextId",
+        "title"
+      ],
+      "sample": {
+        "version": 8,
+        "type": "context-options",
+        "origin": "library",
+        "browserName": "chromium",
+        "playwrightVersion": "1.62.0",
+        "options": {
+          "selectorEngines": [],
+          "acceptDownloads": "accept",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "platform": "win32",
+        "wallTime": 1788522962093,
+        "monotonicTime": 3734.285,
+        "sdkLanguage": "python",
+        "testIdAttributeName": "data-testid",
+        "contextId": "browser-context@f2518a7e194bea538dedf70cbea3d207",
+        "title": "test-drift-py-test-strict-mode-violation-chromium"
+      }
+    },
+    {
+      "type": "before",
+      "count": 3,
+      "keys": [
+        "type",
+        "callId",
+        "startTime",
+        "class",
+        "method",
+        "params",
+        "pageId",
+        "beforeSnapshot"
+      ],
+      "sample": {
+        "type": "before",
+        "callId": "call@24",
+        "startTime": 3782.575,
+        "class": "Frame",
+        "method": "goto",
+        "params": {
+          "url": "file:///D:/Project/Mender/fixtures/pages/data-grid.html",
+          "timeout": 30000
+        },
+        "pageId": "page@fb27669123b7b4e1b7bb76f123e0d34f",
+        "beforeSnapshot": "before@call@24"
+      }
+    },
+    {
+      "type": "event",
+      "count": 1,
+      "keys": [
+        "type",
+        "time",
+        "class",
+        "method",
+        "params"
+      ],
+      "sample": {
+        "type": "event",
+        "time": 3780.377,
+        "class": "BrowserContext",
+        "method": "page",
+        "params": {
+          "pageId": "page@fb27669123b7b4e1b7bb76f123e0d34f"
+        }
+      }
+    },
+    {
+      "type": "after",
+      "count": 3,
+      "keys": [
+        "type",
+        "callId",
+        "endTime",
+        "result",
+        "afterSnapshot",
+        "error"
+      ],
+      "sample": {
+        "type": "after",
+        "callId": "call@26",
+        "endTime": 3868.631,
+        "error": {
+          "message": "Error: strict mode violation: locator(\"button.row-action\") resolved to 40 elements:\n    1) <button data-row=\"0\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"0 Customer 0 Pending Save\").get_by_role(\"button\")\n    2) <button data-row=\"1\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"1 Customer 1 Pending Save\").get_by_role(\"button\")\n    3) <button data-row=\"2\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"2 Customer 2 Pending Save\").get_by_role(\"button\")\n    4) <button data-row=\"3\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"3 Customer 3 Pending Save\").get_by_role(\"button\")\n    5) <button data-row=\"4\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"4 Customer 4 Pending Save\").get_by_role(\"button\")\n    6) <button data-row=\"5\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"5 Customer 5 Pending Save\").get_by_role(\"button\")\n    7) <button data-row=\"6\" type=\"button\" class=\"row-action\">Save changes</button> aka locator(\"#row-6 > td:nth-child(4) > .row-action\")\n    8) <button data-row=\"7\" type=\"button\" class=\"row-action\">Save changes</button> aka locator(\"#row-7 > td:nth-child(4) > .row-action\")\n    9) <button data-row=\"8\" type=\"button\" class=\"row-action\">Save changes</button> aka locator(\"#row-8 > td:nth-child(4) > .row-action\")\n    10) <button data-row=\"9\" type=\"button\" class=\"row-action\">Save changes</button> aka locator(\"#row-9 > td:nth-child(4) > .row-action\")\n    ...\n",
+          "stack": "Error: Error: strict mode violation: locator(\"button.row-action\") resolved to 40 elements:\n    1) <button data-row=\"0\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"0 Customer 0 Pending Save\").get_by_role(\"button\")\n    2) <button data-row=\"1\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"1 Customer 1 Pending Save\").get_by_role(\"button\")\n    3) <button data-row=\"2\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"2 Customer 2 Pending Save\").get_by_role(\"button\")\n    4) <button data-row=\"3\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"3 Customer 3 Pending Save\").get_by_role(\"button\")\n    5) <button data-row=\"4\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"4 Customer 4 Pending Save\").get_by_role(\"button\")\n    6) <button data-row=\"5\" type=\"button\" class=\"row-action\">Save changes</button> aka get_by_role(\"row\", name=\"5 Customer 5 Pending Save\").get_by_role(\"button\")\n    7) <button data-row=\"6\" type=\"button\" class=\"row-action\">Save changes</button> aka locator(\"#row-6 > td:nth-child(4) > .row-action\")\n    8) <button data-row=\"7\" type=\"button\" class=\"row-action\">Save changes</button> aka locator(\"#row-7 > td:nth-child(4) > .row-action\")\n    9) <button data-row=\"8\" type=\"button\" class=\"row-action\">Save changes</button> aka locator(\"#row-8 > td:nth-child(4) > .row-action\")\n    10) <button data-row=\"9\" type=\"button\" class=\"row-action\">Save changes</button> aka locator(\"#row-9 > td:nth-child(4) > .row-action\")\n    ...\n\n    at CRExecutionContext.evaluateWithArguments (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:35397:17)\n    at async LongStandingScope._race (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:3226:18)\n    at async evaluateExpression (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:19157:12)\n    at async FrameSelectors.callOnSelectorHandle (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:20497:25)\n    at async D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:23497:28\n    at async _Frame.retryWithProgressAndTimeouts (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:23468:29)\n    at async _Frame.retryWithProgressAndBackoff (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:23452:16)\n    at async _Frame.click (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:23544:27)\n    at async _FrameDispatcher.click (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:54436:16)\n    at async _ProgressController.run (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:12149:27)",
+          "name": "Error"
+        },
+        "afterSnapshot": "after@call@26"
+      }
+    },
+    {
+      "type": "frame-snapshot",
+      "count": 4,
+      "keys": [
+        "type",
+        "snapshot"
+      ],
+      "sample": {
+        "type": "frame-snapshot",
+        "snapshot": {
+          "callId": "call@24",
+          "snapshotName": "after@call@24",
+          "pageId": "page@fb27669123b7b4e1b7bb76f123e0d34f",
+          "frameId": "frame@2451f9a2e33e9e0ab91441c87e8a0213",
+          "frameUrl": "file:///D:/Project/Mender/fixtures/pages/data-grid.html",
+          "doctype": "html",
+          "html": [
+            "HTML",
+            {
+              "lang": "en"
+            },
+            [
+              "HEAD",
+              {},
+              [
+                "BASE",
+                {
+                  "href": "file:///D:/Project/Mender/fixtures/pages/data-grid.html"
+                }
+              ],
+              "\n  ",
+              [
+                "META",
+                {
+                  "charset": "utf-8"
+                }
+              ],
+              "\n  ",
+              [
+                "TITLE",
+                {},
+                "Data Grid — Orders"
+              ],
+              "\n  ",
+              [
+                "STYLE",
+                {},
+                "\n    table { border-collapse: collapse; width: 100%; }\n    td, th { border: 1px solid #ddd; padding: 4px 8px; text-align: left; }\n    .row-action { background: #2563eb; color: #fff; border: none; padding: 4px 10px; }\n  "
+              ],
+              "\n"
+            ],
+            "\n",
+            [
+              "BODY",
+              {},
+              "\n  ",
+              [
+                "MAIN",
+                {},
+                "\n    ",
+                [
+                  "H1",
+                  {},
+                  "Orders"
+                ],
+                "\n    ",
+                "\n    ",
+                [
+                  "TABLE",
+                  {
+                    "id": "orders-table"
+                  },
+                  "\n      ",
+                  [
+                    "THEAD",
+                    {},
+                    "\n        ",
+                    [
+                      "TR",
+                      {},
+                      [
+                        "TH",
+                        {},
+                        "ID"
+                      ],
+                      [
+                        "TH",
+                        {},
+                        "Customer"
+                      ],
+                      [
+                        "TH",
+                        {},
+                        "Status"
+                      ],
+                      [
+                        "TH",
+                        {},
+                        "Action"
+                      ]
+                    ],
+                    "\n      "
+                  ],
+                  "\n      ",
+                  [
+                    "TBODY",
+                    {
+                      "id": "orders-body"
+                    },
+                    [
+                      "TR",
+                      {
+                        "id": "row-0"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "0"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 0"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "0",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-1"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "1"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 1"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "1",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-2"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "2"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 2"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "2",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-3"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "3"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 3"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "3",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-4"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "4"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 4"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "4",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-5"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "5"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 5"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "5",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-6"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "6"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 6"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "6",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-7"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "7"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 7"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "7",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-8"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "8"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 8"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "8",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-9"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "9"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 9"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "9",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-10"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "10"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 10"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "10",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-11"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "11"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 11"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "11",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-12"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "12"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 12"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "12",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-13"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "13"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 13"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "13",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-14"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "14"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 14"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "14",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-15"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "15"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 15"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "15",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-16"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "16"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 16"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "16",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-17"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "17"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 17"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "17",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-18"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "18"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 18"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "18",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-19"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "19"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 19"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "19",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-20"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "20"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 20"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "20",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-21"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "21"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 21"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "21",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-22"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "22"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 22"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "22",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-23"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "23"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 23"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "23",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-24"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "24"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 24"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "24",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-25"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "25"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 25"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "25",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-26"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "26"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 26"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "26",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-27"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "27"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 27"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "27",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-28"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "28"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 28"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "28",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-29"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "29"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 29"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "29",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-30"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "30"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 30"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "30",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-31"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "31"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 31"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "31",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-32"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "32"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 32"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "32",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-33"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "33"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 33"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "33",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-34"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "34"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 34"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "34",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-35"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "35"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 35"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "35",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-36"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "36"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 36"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "36",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-37"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "37"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 37"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "37",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-38"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "38"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 38"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "38",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ],
+                    [
+                      "TR",
+                      {
+                        "id": "row-39"
+                      },
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "39"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Customer 39"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        "Pending"
+                      ],
+                      "\n        ",
+                      [
+                        "TD",
+                        {},
+                        [
+                          "BUTTON",
+                          {
+                            "class": "row-action",
+                            "data-row": "39",
+                            "type": "button"
+                          },
+                          "Save changes"
+                        ]
+                      ],
+                      "\n      "
+                    ]
+                  ],
+                  "\n    "
+                ],
+                "\n  "
+              ],
+              "\n  ",
+              "\n\n\n"
+            ]
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "timestamp": 3814.84,
+          "wallTime": 1788522962178,
+          "collectionTime": 2.5,
+          "resourceOverrides": [],
+          "isMainFrame": true
+        }
+      }
+    },
+    {
+      "type": "log",
+      "count": 2,
+      "keys": [
+        "type",
+        "callId",
+        "time",
+        "message"
+      ],
+      "sample": {
+        "type": "log",
+        "callId": "call@24",
+        "time": 3785.365,
+        "message": "navigating to \"file:///D:/Project/Mender/fixtures/pages/data-grid.html\", waiting until \"load\""
+      }
+    },
+    {
+      "type": "screencast-frame",
+      "count": 2,
+      "keys": [
+        "type",
+        "pageId",
+        "sha1",
+        "width",
+        "height",
+        "timestamp",
+        "frameSwapWallTime"
+      ],
+      "sample": {
+        "type": "screencast-frame",
+        "pageId": "page@fb27669123b7b4e1b7bb76f123e0d34f",
+        "sha1": "page@fb27669123b7b4e1b7bb76f123e0d34f-1788522962151.jpeg",
+        "width": 1280,
+        "height": 720,
+        "timestamp": 3791.635,
+        "frameSwapWallTime": 1788522962154.0789
+      }
+    }
+  ]
+}

@@ -1,0 +1,321 @@
+{
+  "entries": [
+    "trace.trace",
+    "trace.network",
+    "resources/page@caf82a74a25b1c9b63de2358f63a85d8-1788522958835.jpeg",
+    "resources/page@caf82a74a25b1c9b63de2358f63a85d8-1788522958877.jpeg",
+    "resources/page@caf82a74a25b1c9b63de2358f63a85d8-1788522958888.jpeg",
+    "resources/34271ad2deeb8b94dcb85d69d69c0f011ba0e4c1.html",
+    "trace.stacks",
+    "resources/src@9d373fa5028b5d420b74e5da5db5f1e8191411bb.txt",
+    "resources/src@e022d8156e5f48706ef606d9d0dc7baa0a991c1a.txt",
+    "resources/src@936ddab764135c68207e31a9d7b69edbc0e6d9a1.txt",
+    "resources/src@2725fc7eed6da316f3d7147f01ddb817882f9b3b.txt",
+    "resources/src@26a7172aa4513fac26698ba8be3aed2068388ee2.txt",
+    "resources/src@e050bd9cdf9a381fc77b9c40939ff0991b52e395.txt",
+    "resources/src@03899c7b5512380665cab52dce94c08ae0abdb88.txt",
+    "resources/src@5c509778fc8549688b98a880ed78f003fa861bd2.txt",
+    "resources/src@7381cf291637336fbf20810df2807b0061e18499.txt",
+    "resources/src@e1e56a8de28a016b79d7d214b79fae89c64749ed.txt",
+    "resources/src@28dd102177273e479cba5ebc93ecfc024d0dd93c.txt"
+  ],
+  "checks": {
+    "hasSelector": true,
+    "hasError": true,
+    "hasApiName": true,
+    "hasSnapshot": true,
+    "hasTitle": true,
+    "hasSdkLanguage": true
+  },
+  "types": [
+    {
+      "type": "context-options",
+      "count": 1,
+      "keys": [
+        "version",
+        "type",
+        "origin",
+        "browserName",
+        "playwrightVersion",
+        "options",
+        "platform",
+        "wallTime",
+        "monotonicTime",
+        "sdkLanguage",
+        "testIdAttributeName",
+        "contextId",
+        "title"
+      ],
+      "sample": {
+        "version": 8,
+        "type": "context-options",
+        "origin": "library",
+        "browserName": "chromium",
+        "playwrightVersion": "1.62.0",
+        "options": {
+          "selectorEngines": [],
+          "acceptDownloads": "accept",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "platform": "win32",
+        "wallTime": 1788522958744,
+        "monotonicTime": 384.97,
+        "sdkLanguage": "python",
+        "testIdAttributeName": "data-testid",
+        "contextId": "browser-context@e572a96945b89887d14e8d62801a64fd",
+        "title": "test-drift-py-test-saves-the-form-chromium"
+      }
+    },
+    {
+      "type": "before",
+      "count": 3,
+      "keys": [
+        "type",
+        "callId",
+        "startTime",
+        "class",
+        "method",
+        "params",
+        "pageId",
+        "beforeSnapshot"
+      ],
+      "sample": {
+        "type": "before",
+        "callId": "call@9",
+        "startTime": 468.387,
+        "class": "Frame",
+        "method": "goto",
+        "params": {
+          "url": "file:///D:/Project/Mender/fixtures/pages/semantic.html",
+          "timeout": 30000
+        },
+        "pageId": "page@caf82a74a25b1c9b63de2358f63a85d8",
+        "beforeSnapshot": "before@call@9"
+      }
+    },
+    {
+      "type": "event",
+      "count": 1,
+      "keys": [
+        "type",
+        "time",
+        "class",
+        "method",
+        "params"
+      ],
+      "sample": {
+        "type": "event",
+        "time": 465.181,
+        "class": "BrowserContext",
+        "method": "page",
+        "params": {
+          "pageId": "page@caf82a74a25b1c9b63de2358f63a85d8"
+        }
+      }
+    },
+    {
+      "type": "after",
+      "count": 3,
+      "keys": [
+        "type",
+        "callId",
+        "endTime",
+        "result",
+        "afterSnapshot",
+        "error"
+      ],
+      "sample": {
+        "type": "after",
+        "callId": "call@11",
+        "endTime": 3506.337,
+        "error": {
+          "message": "Timeout 3000ms exceeded.",
+          "stack": "TimeoutError: Timeout 3000ms exceeded.\n    at _ProgressController.run (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:12135:32)\n    at DispatcherConnection.dispatch (D:\\Project\\Mender\\fixtures\\python-suite\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\coreBundle.js:18775:44)",
+          "name": "TimeoutError"
+        },
+        "afterSnapshot": "after@call@11"
+      }
+    },
+    {
+      "type": "screencast-frame",
+      "count": 3,
+      "keys": [
+        "type",
+        "pageId",
+        "sha1",
+        "width",
+        "height",
+        "timestamp",
+        "frameSwapWallTime"
+      ],
+      "sample": {
+        "type": "screencast-frame",
+        "pageId": "page@caf82a74a25b1c9b63de2358f63a85d8",
+        "sha1": "page@caf82a74a25b1c9b63de2358f63a85d8-1788522958835.jpeg",
+        "width": 1280,
+        "height": 720,
+        "timestamp": 476.541,
+        "frameSwapWallTime": 1788522958838.489
+      }
+    },
+    {
+      "type": "frame-snapshot",
+      "count": 4,
+      "keys": [
+        "type",
+        "snapshot"
+      ],
+      "sample": {
+        "type": "frame-snapshot",
+        "snapshot": {
+          "callId": "call@9",
+          "snapshotName": "after@call@9",
+          "pageId": "page@caf82a74a25b1c9b63de2358f63a85d8",
+          "frameId": "frame@162a88efd61ce4e7db0eef6a747d98dc",
+          "frameUrl": "file:///D:/Project/Mender/fixtures/pages/semantic.html",
+          "doctype": "html",
+          "html": [
+            "HTML",
+            {
+              "lang": "en"
+            },
+            [
+              "HEAD",
+              {},
+              [
+                "BASE",
+                {
+                  "href": "file:///D:/Project/Mender/fixtures/pages/semantic.html"
+                }
+              ],
+              "\n  ",
+              [
+                "META",
+                {
+                  "charset": "utf-8"
+                }
+              ],
+              "\n  ",
+              [
+                "TITLE",
+                {},
+                "Semantic HTML — Login"
+              ],
+              "\n"
+            ],
+            "\n",
+            [
+              "BODY",
+              {},
+              "\n  ",
+              [
+                "MAIN",
+                {},
+                "\n    ",
+                [
+                  "H1",
+                  {},
+                  "Sign in"
+                ],
+                "\n    ",
+                [
+                  "FORM",
+                  {
+                    "aria-label": "Login form"
+                  },
+                  "\n      ",
+                  [
+                    "LABEL",
+                    {
+                      "for": "username"
+                    },
+                    "Username"
+                  ],
+                  "\n      ",
+                  [
+                    "INPUT",
+                    {
+                      "__playwright_value_": "",
+                      "id": "username",
+                      "name": "username",
+                      "type": "text",
+                      "autocomplete": "username"
+                    }
+                  ],
+                  "\n\n      ",
+                  [
+                    "LABEL",
+                    {
+                      "for": "password"
+                    },
+                    "Password"
+                  ],
+                  "\n      ",
+                  [
+                    "INPUT",
+                    {
+                      "__playwright_value_": "",
+                      "id": "password",
+                      "name": "password",
+                      "type": "password",
+                      "autocomplete": "current-password"
+                    }
+                  ],
+                  "\n\n      ",
+                  [
+                    "BUTTON",
+                    {
+                      "id": "save-btn",
+                      "type": "submit"
+                    },
+                    "Save changes"
+                  ],
+                  "\n      ",
+                  [
+                    "BUTTON",
+                    {
+                      "id": "cancel-btn",
+                      "type": "button"
+                    },
+                    "Cancel"
+                  ],
+                  "\n    "
+                ],
+                "\n  "
+              ],
+              "\n\n\n"
+            ]
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "timestamp": 499.427,
+          "wallTime": 1788522958864,
+          "collectionTime": 1.300000011920929,
+          "resourceOverrides": [],
+          "isMainFrame": true
+        }
+      }
+    },
+    {
+      "type": "log",
+      "count": 2,
+      "keys": [
+        "type",
+        "callId",
+        "time",
+        "message"
+      ],
+      "sample": {
+        "type": "log",
+        "callId": "call@9",
+        "time": 477.632,
+        "message": "navigating to \"file:///D:/Project/Mender/fixtures/pages/semantic.html\", waiting until \"load\""
+      }
+    }
+  ]
+}
