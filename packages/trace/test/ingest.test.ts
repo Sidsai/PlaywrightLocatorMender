@@ -30,6 +30,17 @@ describe('ingest', () => {
     expect(records[0].sdkLanguage).toBe('java');
   });
 
+  it('resolves a usable full-tree DOM snapshot, not a compact diff reference', async () => {
+    // Playwright compresses repeated same-page snapshots into a compact diff form
+    // (e.g. "[[2,36]]") after the first one per page — see D-020. This test pins
+    // that ingest() always resolves to a real [tag, attrs, ...children] tree.
+    const records = await ingest('fixtures/traces/ts-1.62.1-timeout.zip');
+    const html = records[0].snapshot.html;
+    expect(Array.isArray(html)).toBe(true);
+    expect(typeof (html as unknown[])[0]).toBe('string');
+    expect(JSON.stringify(html)).toContain('save-btn');
+  });
+
   it('throws a clear "unsupported trace" message for a non-trace file', async () => {
     await expect(ingest('package.json')).rejects.toThrow(/unsupported trace/i);
   });

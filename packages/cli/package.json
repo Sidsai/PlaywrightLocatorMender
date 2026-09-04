@@ -1,0 +1,14 @@
+{
+  "name": "playwright-mender",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "playwright-mender": "./dist/index.js"
+  },
+  "dependencies": {
+    "@mender/trace": "*",
+    "@mender/core": "*",
+    "glob": "^11.0.0"
+  }
+}
