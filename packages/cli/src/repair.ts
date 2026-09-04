@@ -11,12 +11,15 @@ import { scoreCandidates } from '../../core/src/scoring/heuristic.js';
 import { margin as computeMargin } from '../../core/src/scoring/margin.js';
 import { CONFIG_DEFAULTS } from '../../core/src/config.js';
 import { renderStdout, type RepairResult } from '../../core/src/report/result.js';
+import { resolvePatch } from '../../core/src/patch/resolve.js';
+import { typeScriptAdapter, createTypeScriptAdapter } from '../../adapter-typescript/src/index.js';
 
 export interface RepairOptions {
   trace: string[]; // one or more paths or glob patterns
   json?: boolean;
-  patch?: boolean; // accepted, not yet acted on — Task 58
+  patch?: boolean; // TRD §10: write the change to disk and print a diff
   marginThreshold?: number; // override CONFIG_DEFAULTS.marginThreshold
+  patchRoot?: string; // project root to search for the broken selector (default: process.cwd())
 }
 
 export interface RepairRunResult {
@@ -84,6 +87,34 @@ export async function runRepair(options: RepairOptions): Promise<RepairRunResult
             rejected: {},
           };
 
+      // --patch (TRD §10): write the change to disk and print a diff. Default
+      // (dry-run) mode never reaches this branch's write calls at all.
+      let patchLines: string[] = [];
+      if (options.patch && result.outcome === 'proposed' && result.proposed) {
+        const root = options.patchRoot ?? process.cwd();
+        const resolution = resolvePatch(root, record.brokenSelector);
+        if (resolution.action === 'decline') {
+          patchLines = [`  patch declined: ${resolution.reason}`];
+          if (resolution.occurrences.length > 1) {
+            patchLines.push(...resolution.occurrences.map((o) => `    - ${o.file}:${o.line}`));
+          }
+        } else {
+          const target = resolution.occurrences[0];
+          const targetFile = `${root}/${target.file}`;
+          // result.proposed already carries its own prefix ('#id' or a role=...
+          // descriptor) — used verbatim as the literal replacement text.
+          const adapter = root === process.cwd() ? typeScriptAdapter : createTypeScriptAdapter(root);
+          const patch = adapter.applyPatch(targetFile, record.brokenSelector, result.proposed);
+          patchLines = [
+            `  patched ${target.file}:${target.line}`,
+            `  --- ${target.file}`,
+            `  +++ ${target.file}`,
+            `  - ${patch.before.trim()}`,
+            `  + ${patch.after.trim()}`,
+          ];
+        }
+      }
+
       if (options.json) {
         allJson.push({
           trace: path,
@@ -92,6 +123,7 @@ export async function runRepair(options: RepairOptions): Promise<RepairRunResult
           identitySource: identity.source,
           candidateCount: candidates.length,
           ...result,
+          ...(patchLines.length > 0 ? { patch: patchLines.join('\n') } : {}),
         });
       } else {
         lines.push(`${path}`);
@@ -103,6 +135,7 @@ export async function runRepair(options: RepairOptions): Promise<RepairRunResult
             .map((l) => `  ${l}`)
             .join('\n'),
         );
+        if (patchLines.length > 0) lines.push(...patchLines);
       }
     }
   }
