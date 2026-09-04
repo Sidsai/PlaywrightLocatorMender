@@ -22,7 +22,17 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm install
-      - run: npx playwright install chromium
+      # fixtures/ts-suite is a deliberately SEPARATE npm project, outside the
+      # packages/* workspaces glob (Task 7's design) — it has its own
+      # package.json and its own node_modules, which `npm install` at the repo
+      # root does not touch. Locally this only worked because it was installed
+      # once by hand during fixture generation; CI never did that, causing
+      # "cannot find package '@playwright/test'" the first time this workflow
+      # actually ran (found via a real Actions run, not caught by local
+      # testing — this file was YAML-validated but genuinely unexercised
+      # before that first push, exactly as flagged in Task 64's own notes).
+      - run: npm install --prefix fixtures/ts-suite
+      - run: npx playwright install --with-deps chromium
       - run: npm test
 
   # Confirms the committed fixture traces (M0's evidence — D-014/D-015/D-016) still
