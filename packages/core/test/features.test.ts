@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { attributeOverlap, roleMatch, textSimilarity, structuralProximity } from '../src/scoring/features.js';
+import {
+  attributeOverlap,
+  roleMatch,
+  textSimilarity,
+  structuralProximity,
+  uniquenessPenalty,
+} from '../src/scoring/features.js';
 import { parseSelector } from '../src/scoring/selector.js';
 import type { Candidate } from '../src/candidates/extract.js';
 
@@ -80,5 +86,37 @@ describe('structuralProximity', () => {
     const parsed = parseSelector('a > b > c > d'); // depth 4
     const sameDepth = mk({ fingerprint: 'W[0]>X[0]>Y[0]>Z[0]' }); // depth 4
     expect(structuralProximity(parsed, sameDepth)).toBe(1);
+  });
+});
+
+describe('uniquenessPenalty — the M6 defense', () => {
+  // Decoy text mirrors mutateM6's own generation pattern ("${text} draft" — see
+  // packages/bench/src/mutate/m6.ts): prefix-preserving, genuinely near-identical,
+  // not just thematically related. A decoy built from unrelated words would be an
+  // unrealistically easy test of this exact defense (TRD §14's risk row).
+  it('penalises a candidate that has a near-identical twin', () => {
+    const target = mk({ id: 'a', role: 'button', accessibleName: 'Save changes' });
+    const twin = mk({ id: 'b', role: 'button', accessibleName: 'Save changes draft' });
+    const all = [target, twin];
+    expect(uniquenessPenalty(target, all)).toBeLessThan(1);
+  });
+
+  it('does not penalise a candidate with no similar siblings', () => {
+    const target = mk({ id: 'a', role: 'button', accessibleName: 'Save changes' });
+    const unrelated = mk({ id: 'b', role: 'textbox', accessibleName: 'Username' });
+    const all = [target, unrelated];
+    expect(uniquenessPenalty(target, all)).toBe(1);
+  });
+
+  it('penalises more heavily as more near-identical twins pile up', () => {
+    const target = mk({ id: 'a', role: 'button', accessibleName: 'Save changes' });
+    const twins3 = [
+      target,
+      mk({ id: 'b', role: 'button', accessibleName: 'Save changes draft' }),
+      mk({ id: 'c', role: 'button', accessibleName: 'Save changes copy' }),
+      mk({ id: 'd', role: 'button', accessibleName: 'Save changes all' }),
+    ];
+    const twins1 = [target, mk({ id: 'b', role: 'button', accessibleName: 'Save changes draft' })];
+    expect(uniquenessPenalty(target, twins3)).toBeLessThan(uniquenessPenalty(target, twins1));
   });
 });

@@ -87,3 +87,23 @@ export function structuralProximity(selector: ParsedSelector, candidate: Candida
   const diff = Math.abs(selector.depth - candidateDepth);
   return 1 / (1 + diff);
 }
+
+const TWIN_SIMILARITY_THRESHOLD = 0.5;
+
+/**
+ * TRD §5 feature 5: penalty where the candidate is one of several near-identical
+ * siblings. This is the direct defense against M6 (PRD §9's adversarial mutation
+ * class, a near-identical duplicate elsewhere) — a candidate sharing its role and a
+ * closely similar accessible name with one or more other candidates is exactly the
+ * shape of an ambiguous, easy-to-mispick case. Returns 1 (no penalty) when the
+ * candidate has no such twins; approaches 0 as more twins accumulate.
+ */
+export function uniquenessPenalty(candidate: Candidate, allCandidates: Candidate[]): number {
+  const twins = allCandidates.filter((other) => {
+    if (other === candidate) return false;
+    if (other.role !== candidate.role) return false;
+    if (!candidate.accessibleName || !other.accessibleName) return false;
+    return stringSimilarity(normalise(candidate.accessibleName), normalise(other.accessibleName)) >= TWIN_SIMILARITY_THRESHOLD;
+  });
+  return 1 / (1 + twins.length);
+}
