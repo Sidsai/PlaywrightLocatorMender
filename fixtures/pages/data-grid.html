@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Data Grid — Orders</title>
+  <style>
+    table { border-collapse: collapse; width: 100%; }
+    td, th { border: 1px solid #ddd; padding: 4px 8px; text-align: left; }
+    .row-action { background: #2563eb; color: #fff; border: none; padding: 4px 10px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Orders</h1>
+    <!--
+      40 near-identical rows, each with a "Save changes" button that is structurally
+      indistinguishable from its siblings except for the row's id. This is the M6
+      shape: a broken selector for row 17's save button could plausibly resolve to
+      any of the other 39 — the exact adversarial case the benchmark's M6 class and
+      the heuristic scorer's uniqueness-penalty feature (TRD §5) exist to handle.
+      The row with id="row-17" is the fixture's canonical target for drift tests.
+    -->
+    <table id="orders-table">
+      <thead>
+        <tr><th>ID</th><th>Customer</th><th>Status</th><th>Action</th></tr>
+      </thead>
+      <tbody id="orders-body"></tbody>
+    </table>
+  </main>
+  <script>
+    const body = document.getElementById('orders-body');
+    for (let i = 0; i < 40; i++) {
+      const tr = document.createElement('tr');
+      tr.id = `row-${i}`;
+      tr.innerHTML = `
+        <td>${i}</td>
+        <td>Customer ${i}</td>
+        <td>Pending</td>
+        <td><button class="row-action" data-row="${i}" type="button">Save changes</button></td>
+      `;
+      body.appendChild(tr);
+    }
+  </script>
+</body>
+</html>

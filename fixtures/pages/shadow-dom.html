@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Shadow DOM — Login</title>
+</head>
+<body>
+  <main>
+    <h1>Sign in</h1>
+    <!-- The form lives inside an OPEN shadow root attached to this host element.
+         Whether Playwright's DOM snapshot captures shadow content at all — and
+         whether it does so consistently across the TS, Python and Java bindings —
+         is exactly what Task 10's cross-binding check exists to determine. Per
+         PRD §9, shadow DOM is excluded from v1 unless that check finds uniform
+         capture; this fixture is what produces the evidence either way. -->
+    <login-form></login-form>
+  </main>
+  <script>
+    class LoginForm extends HTMLElement {
+      connectedCallback() {
+        const shadow = this.attachShadow({ mode: 'open' });
+        shadow.innerHTML = `
+          <form>
+            <input name="username" type="text" placeholder="Username" />
+            <input name="password" type="password" placeholder="Password" />
+            <button id="save-btn" type="submit">Save changes</button>
+            <button id="cancel-btn" type="button">Cancel</button>
+          </form>
+        `;
+      }
+    }
+    customElements.define('login-form', LoginForm);
+  </script>
+</body>
+</html>

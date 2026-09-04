@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Deep Nesting — Login</title>
+</head>
+<body>
+  <div class="app">
+    <div class="layout">
+      <div class="layout__body">
+        <div class="page">
+          <div class="page__content">
+            <div class="panel">
+              <div class="panel__inner">
+                <div class="card">
+                  <div class="card__body">
+                    <div class="form-wrap">
+                      <form>
+                        <div class="field">
+                          <div class="field__control">
+                            <input name="username" type="text" placeholder="Username" />
+                          </div>
+                        </div>
+                        <div class="field">
+                          <div class="field__control">
+                            <input name="password" type="password" placeholder="Password" />
+                          </div>
+                        </div>
+                        <div class="actions">
+                          <div class="actions__group">
+                            <!-- Target sits 12 divs deep from <body>. Exercises M3
+                                 (wrapper insertion) — there is already plenty of room
+                                 to insert another layer without visibly changing the
+                                 page, which is exactly what makes M3 hard. -->
+                            <button id="save-btn" type="submit">Save changes</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

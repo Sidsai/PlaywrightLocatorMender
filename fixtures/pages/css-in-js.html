@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CSS-in-JS — Login</title>
+  <style>
+    /* Simulates hashed class names produced by a CSS-in-JS build (styled-components,
+       emotion, vanilla-extract). The hash changes on every build in a real app, so
+       attribute-overlap heuristics get almost no signal from these tokens. */
+    .css-1a2b3c { display: flex; flex-direction: column; gap: 8px; padding: 16px; }
+    .css-4d5e6f { background: #16a34a; color: #fff; padding: 8px 16px; border-radius: 4px; border: none; }
+    .css-7g8h9i { background: #f3f4f6; padding: 8px 16px; border-radius: 4px; border: none; }
+  </style>
+</head>
+<body>
+  <main class="css-1a2b3c">
+    <h1>Sign in</h1>
+    <form class="css-1a2b3c">
+      <input name="username" type="text" placeholder="Username" />
+      <input name="password" type="password" placeholder="Password" />
+      <button class="css-4d5e6f" type="submit">Save changes</button>
+      <button class="css-7g8h9i" type="button">Cancel</button>
+    </form>
+  </main>
+</body>
+</html>
