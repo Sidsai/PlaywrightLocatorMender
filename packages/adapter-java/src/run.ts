@@ -12,6 +12,19 @@ export interface RunCommand {
 }
 
 /**
+ * Distinguishes a Cucumber scenario name from a JUnit/TestNG Class#method
+ * identity (TRD §8, Task 62). A JUnit-shaped identity is always exactly
+ * `ValidJavaIdentifier#validJavaIdentifier` — no spaces, no punctuation beyond
+ * the single '#'. A Cucumber scenario name is a free-form sentence ("User saves
+ * the form") that will never match that shape. This is a structural check, not
+ * a guess: any identity failing the Class#method pattern is treated as a
+ * scenario name, which is the only other identity shape TRD §8 defines.
+ */
+export function isCucumberScenario(identity: TestIdentity): boolean {
+  return !/^[A-Za-z_$][A-Za-z0-9_$]*#[A-Za-z_$][A-Za-z0-9_$]*$/.test(identity.raw);
+}
+
+/**
  * Builds the run command for one of TRD §8's three shapes:
  *   Maven + JUnit/TestNG:  mvn test -Dtest=Class#method
  *   Gradle + JUnit/TestNG: gradle test --tests Class.method
@@ -47,8 +60,12 @@ export function buildRunCommand(buildTool: BuildTool, identity: TestIdentity, cu
 // Same lesson as the TypeScript adapter (D-027): npm/other CLI shims need
 // shell:true to spawn on Windows, and mvn/gradle are no different — both are
 // typically .cmd/.bat wrappers on a Windows PATH.
-export async function runJavaTest(buildTool: BuildTool, identity: TestIdentity, cwd: string, cucumberScenario = false): Promise<TestResult> {
-  const { cmd, args } = buildRunCommand(buildTool, identity, cucumberScenario);
+export async function runJavaTest(buildTool: BuildTool, identity: TestIdentity, cwd: string, cucumberScenario?: boolean): Promise<TestResult> {
+  // Auto-detected via isCucumberScenario() when the caller doesn't already know
+  // (Task 62) — most callers won't, since identity resolution (D-008) doesn't
+  // itself distinguish JUnit from Cucumber, it just resolves a raw string.
+  const isCucumber = cucumberScenario ?? isCucumberScenario(identity);
+  const { cmd, args } = buildRunCommand(buildTool, identity, isCucumber);
   const start = Date.now();
   try {
     const { stdout, stderr } = await execFileAsync(cmd, args, { cwd, shell: true });

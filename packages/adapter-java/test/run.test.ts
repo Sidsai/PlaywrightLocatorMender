@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { execSync } from 'node:child_process';
-import { buildRunCommand, runJavaTest } from '../src/run.js';
+import { buildRunCommand, runJavaTest, isCucumberScenario } from '../src/run.js';
 
 function hasGradle(): boolean {
   try {
@@ -37,6 +37,21 @@ describe('buildRunCommand — TRD §8 command shapes', () => {
       cmd: 'mvn',
       args: ['test', '-Dcucumber.filter.name=User saves the form', '-DfailIfNoTests=true'],
     });
+  });
+});
+
+describe('isCucumberScenario — distinguishing scenario names from Class#method (Task 62)', () => {
+  it('a Class#method identity is NOT a Cucumber scenario', () => {
+    expect(isCucumberScenario({ raw: 'DriftTest#savesTheForm', source: 'title' })).toBe(false);
+  });
+
+  it('a free-form scenario sentence IS a Cucumber scenario', () => {
+    expect(isCucumberScenario({ raw: 'User saves the form', source: 'title' })).toBe(true);
+  });
+
+  it('a scenario name resolves to the cucumber.filter.name command shape automatically via runJavaTest', () => {
+    const cmd = buildRunCommand('maven', { raw: 'User saves the form', source: 'title' }, true);
+    expect(cmd.args).toContain('-Dcucumber.filter.name=User saves the form');
   });
 });
 
