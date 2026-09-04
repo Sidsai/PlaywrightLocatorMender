@@ -1,0 +1,90 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # Core suite across the Node versions Mender supports (TRD §2's version-matrix
+  # mitigation for the trace-format risk — a change that breaks parsing on one
+  # Node/Playwright combination but not another should show up here, not in the
+  # field).
+  unit:
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - run: npx playwright install chromium
+      - run: npm test
+
+  # Confirms the committed fixture traces (M0's evidence — D-014/D-015/D-016) still
+  # parse cleanly on every Playwright version Mender claims to support. TRD §2:
+  # "Declare a supported Playwright version range in the README and enforce it in
+  # CI with a version matrix." 1.48.0 is the floor (the oldest fixture, Java's),
+  # "latest" is exercised via whatever @playwright/test resolves to from
+  # fixtures/ts-suite's own package.json.
+  fixture-trace-parse:
+    strategy:
+      fail-fast: false
+      matrix:
+        playwright-version: ['1.48.0', 'latest']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install the matrix Playwright version into a scratch check
+        run: npm install --no-save @playwright/test@${{ matrix.playwright-version }}
+      - name: Assert every committed fixture trace still parses without throwing
+        run: npx tsx -e "
+          import('./packages/trace/src/ingest.js').then(async ({ ingest }) => {
+            const { readdirSync } = await import('node:fs');
+            const files = readdirSync('fixtures/traces').filter(f => f.endsWith('.zip'));
+            for (const f of files) {
+              const records = await ingest('fixtures/traces/' + f);
+              console.log(f, '->', records.length, 'record(s), OK');
+            }
+          }).catch(e => { console.error(e); process.exit(1); });
+          "
+
+  # Gradle command-shape test is skipped locally (D-013 — Gradle is not installed
+  # on the development machine); CI has it via gradle/actions/setup-gradle, so
+  # this is where it actually runs for real, not just as skipped-with-a-note.
+  java-gradle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npx vitest run packages/adapter-java/test/run.test.ts
+
+  # Python fixture generation targets 3.12 (D-012) — this job is where that
+  # target is actually enforced, since the development machine only had 3.14 and
+  # needed py-launcher provisioning to get 3.12 at all.
+  python-3-12:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r fixtures/python-suite/requirements.txt
+      - run: playwright install chromium
+      - run: pytest fixtures/python-suite --tracing=on || true # deliberately-failing fixtures
