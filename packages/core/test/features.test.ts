@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { attributeOverlap, roleMatch } from '../src/scoring/features.js';
+import { attributeOverlap, roleMatch, textSimilarity } from '../src/scoring/features.js';
 import { parseSelector } from '../src/scoring/selector.js';
 import type { Candidate } from '../src/candidates/extract.js';
 
@@ -44,5 +44,26 @@ describe('roleMatch', () => {
     const parsed = parseSelector('#save-btn');
     const anything = mk({ role: 'button' });
     expect(roleMatch(parsed, anything)).toBe(0.5);
+  });
+});
+
+describe('textSimilarity', () => {
+  it('scores a candidate with matching text highest', () => {
+    const parsed = parseSelector('text="Save changes"');
+    const exact = mk({ accessibleName: 'Save changes' });
+    const unrelated = mk({ accessibleName: 'Cancel' });
+    expect(textSimilarity(parsed, exact)).toBeGreaterThan(textSimilarity(parsed, unrelated));
+  });
+
+  it('normalises whitespace and case before comparing', () => {
+    const parsed = parseSelector('text="Save changes"');
+    const candidate = mk({ accessibleName: '  SAVE   changes  ' });
+    expect(textSimilarity(parsed, candidate)).toBeGreaterThan(0.9);
+  });
+
+  it('returns 0 when the selector carries no text signal at all', () => {
+    const parsed = parseSelector('#save-btn'); // no text= in an id selector
+    const candidate = mk({ accessibleName: 'Save changes' });
+    expect(textSimilarity(parsed, candidate)).toBe(0);
   });
 });

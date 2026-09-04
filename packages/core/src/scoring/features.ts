@@ -54,3 +54,19 @@ export function roleMatch(selector: ParsedSelector, candidate: Candidate): numbe
   const impliedRole = TAG_TO_ROLE[selector.tag] ?? selector.tag.toLowerCase();
   return impliedRole === candidate.role ? 1 : 0;
 }
+
+function normalise(s: string): string {
+  return s.toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * TRD §5 feature 3: normalised similarity between selector-implied text and the
+ * candidate's accessible name. Only Playwright's text engine (text="...") carries
+ * an explicit text signal in the broken selector itself; an id/class selector has
+ * none, so this returns 0 (a genuine absence of signal, unlike roleMatch's 0.5 —
+ * text similarity has no tag-shaped "partial" signal to fall back to).
+ */
+export function textSimilarity(selector: ParsedSelector, candidate: Candidate): number {
+  if (!selector.text || !candidate.accessibleName) return 0;
+  return stringSimilarity(normalise(selector.text), normalise(candidate.accessibleName));
+}
