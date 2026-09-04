@@ -129,6 +129,28 @@ export function structuralProximity(selector: ParsedSelector, candidate: Candida
 const TWIN_SIMILARITY_THRESHOLD = 0.5;
 
 /**
+ * Word-overlap (Jaccard) similarity — O(words), no DP table allocation, unlike
+ * stringSimilarity's O(len_a * len_b) Levenshtein. Used specifically for twin
+ * detection (below), which calls this O(n) times per candidate scored, making it
+ * O(n²) overall (TRD §13 found this exceeding the 100ms budget with full
+ * Levenshtein at n=40 — 121ms measured; see AI/DECISION.md D-024). Word overlap is
+ * also arguably the more correct model for "does this read as the same button" —
+ * "Save changes" vs "Save changes draft" share 2 of 3 words, which is a more
+ * legible near-duplicate signal than character-level edit distance for this
+ * specific purpose (M6 decoys are built by appending/varying whole words, not
+ * scrambling characters — see mutateM6).
+ */
+function wordOverlapSimilarity(a: string, b: string): number {
+  const wordsA = new Set(a.split(' ').filter(Boolean));
+  const wordsB = new Set(b.split(' ').filter(Boolean));
+  if (wordsA.size === 0 || wordsB.size === 0) return 0;
+  let intersection = 0;
+  for (const w of wordsA) if (wordsB.has(w)) intersection++;
+  const union = wordsA.size + wordsB.size - intersection;
+  return union === 0 ? 0 : intersection / union;
+}
+
+/**
  * TRD §5 feature 5: penalty where the candidate is one of several near-identical
  * siblings. This is the direct defense against M6 (PRD §9's adversarial mutation
  * class, a near-identical duplicate elsewhere) — a candidate sharing its role and a
@@ -137,11 +159,14 @@ const TWIN_SIMILARITY_THRESHOLD = 0.5;
  * candidate has no such twins; approaches 0 as more twins accumulate.
  */
 export function uniquenessPenalty(candidate: Candidate, allCandidates: Candidate[]): number {
-  const twins = allCandidates.filter((other) => {
-    if (other === candidate) return false;
-    if (other.role !== candidate.role) return false;
-    if (!candidate.accessibleName || !other.accessibleName) return false;
-    return stringSimilarity(normalise(candidate.accessibleName), normalise(other.accessibleName)) >= TWIN_SIMILARITY_THRESHOLD;
-  });
-  return 1 / (1 + twins.length);
+  if (!candidate.accessibleName) return 1;
+  const candidateName = normalise(candidate.accessibleName);
+  let twinCount = 0;
+  for (const other of allCandidates) {
+    if (other === candidate) continue;
+    if (other.role !== candidate.role) continue;
+    if (!other.accessibleName) continue;
+    if (wordOverlapSimilarity(candidateName, normalise(other.accessibleName)) >= TWIN_SIMILARITY_THRESHOLD) twinCount++;
+  }
+  return 1 / (1 + twinCount);
 }

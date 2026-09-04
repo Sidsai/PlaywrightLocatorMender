@@ -7,11 +7,16 @@ import { ingest } from '../../trace/src/ingest.js';
 import { resolveIdentity } from '../../trace/src/identity.js';
 import { extractCandidates } from '../../core/src/candidates/extract.js';
 import { filterCandidates } from '../../core/src/candidates/filter.js';
+import { scoreCandidates } from '../../core/src/scoring/heuristic.js';
+import { margin as computeMargin } from '../../core/src/scoring/margin.js';
+import { CONFIG_DEFAULTS } from '../../core/src/config.js';
+import { renderStdout, type RepairResult } from '../../core/src/report/result.js';
 
 export interface RepairOptions {
   trace: string[]; // one or more paths or glob patterns
   json?: boolean;
   patch?: boolean; // accepted, not yet acted on — Task 58
+  marginThreshold?: number; // override CONFIG_DEFAULTS.marginThreshold
 }
 
 export interface RepairRunResult {
@@ -21,14 +26,15 @@ export interface RepairRunResult {
 
 /**
  * Report-only CLI core (TRD §10 --dry-run mode, the default). Ingests every matched
- * trace, extracts and filters candidates, and reports the broken selector per
- * failure. Scoring (heuristic/reranker) doesn't exist until M3/M4, so every record
- * currently reports "no proposal (scoring not yet implemented)" rather than a real
- * decline or proposal — that distinction matters: this is not P3's decline path, it's
- * an honest statement that the pipeline isn't finished yet.
+ * trace, extracts and filters candidates, and scores them with the heuristic
+ * scorer (M3) — this is TRD §5's offline mode: propose the top candidate only when
+ * its margin over the runner-up clears the threshold, otherwise decline. No
+ * confidence gate here (that's the reranker's addition, M4/Task 48) — offline mode
+ * is margin-only per TRD §5's own description.
  */
 export async function runRepair(options: RepairOptions): Promise<RepairRunResult> {
   const paths = (await Promise.all(options.trace.map((pattern) => glob(pattern)))).flat();
+  const delta = options.marginThreshold ?? CONFIG_DEFAULTS.marginThreshold;
 
   const allJson: unknown[] = [];
   const lines: string[] = [];
@@ -48,6 +54,36 @@ export async function runRepair(options: RepairOptions): Promise<RepairRunResult
         ? filterCandidates(extractCandidates(record.snapshot.html))
         : [];
 
+      const scored = scoreCandidates(record.brokenSelector, candidates);
+      const m = computeMargin(scored);
+      const proposeable = scored.length > 0 && m >= delta;
+
+      const result: RepairResult = proposeable
+        ? {
+            outcome: 'proposed',
+            proposed: scored[0].candidate.attrs.id
+              ? `#${scored[0].candidate.attrs.id}`
+              : `role=${scored[0].candidate.role}[name="${scored[0].candidate.accessibleName ?? ''}"]`,
+            runnerUp: scored[1]
+              ? scored[1].candidate.attrs.id
+                ? `#${scored[1].candidate.attrs.id}`
+                : `role=${scored[1].candidate.role}[name="${scored[1].candidate.accessibleName ?? ''}"]`
+              : undefined,
+            margin: m,
+            verification: 'unavailable', // verifier doesn't exist until M5 (Task 56)
+            rejected: {},
+          }
+        : {
+            outcome: 'declined',
+            declineReason:
+              candidates.length === 0
+                ? 'no candidates extracted from the snapshot'
+                : `no candidate cleared the margin threshold (${delta})`,
+            margin: scored.length > 0 ? m : undefined,
+            verification: 'unavailable',
+            rejected: {},
+          };
+
       if (options.json) {
         allJson.push({
           trace: path,
@@ -55,12 +91,18 @@ export async function runRepair(options: RepairOptions): Promise<RepairRunResult
           failureKind: record.failureKind,
           identitySource: identity.source,
           candidateCount: candidates.length,
+          ...result,
         });
       } else {
         lines.push(`${path}`);
         lines.push(`  broken   ${record.brokenSelector}`);
         lines.push(`  ${candidates.length} candidates extracted`);
-        lines.push(`  no proposal (scoring not yet implemented)`);
+        lines.push(
+          renderStdout(result)
+            .split('\n')
+            .map((l) => `  ${l}`)
+            .join('\n'),
+        );
       }
     }
   }
