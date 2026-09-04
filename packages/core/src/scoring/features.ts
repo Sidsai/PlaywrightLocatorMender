@@ -34,3 +34,23 @@ export function attributeOverlap(selector: ParsedSelector, candidate: Candidate)
   }
   return 0;
 }
+
+const TAG_TO_ROLE: Record<string, string> = {
+  BUTTON: 'button',
+  A: 'link',
+  INPUT: 'textbox',
+};
+
+/**
+ * TRD §5 feature 2: role inferred from the broken selector vs candidate role.
+ * A selector like "button.row-action" implies role "button" via its tag; an
+ * id-only selector like "#save-btn" implies nothing about role at all. Returning
+ * 0 for the no-signal case would make this feature actively penalise every
+ * candidate on an id-based selector, which is wrong — 0.5 (neutral/uncertain)
+ * keeps the feature honest about what it does and doesn't know.
+ */
+export function roleMatch(selector: ParsedSelector, candidate: Candidate): number {
+  if (!selector.tag) return 0.5;
+  const impliedRole = TAG_TO_ROLE[selector.tag] ?? selector.tag.toLowerCase();
+  return impliedRole === candidate.role ? 1 : 0;
+}
