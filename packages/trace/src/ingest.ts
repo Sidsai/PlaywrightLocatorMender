@@ -1,5 +1,6 @@
 import { openTrace, readText } from './zip.js';
 import { getStr, getVal, type FailureRecord, type FailureKind } from './events.js';
+import { isVersionSupported, SUPPORTED_PLAYWRIGHT_RANGE } from './version.js';
 
 interface RawEvent {
   type?: string;
@@ -88,6 +89,17 @@ export async function ingest(path: string): Promise<FailureRecord[]> {
 
   const contextOptions = events.find((e) => e.type === 'context-options');
   const playwrightVersion = getStr(contextOptions, 'playwrightVersion');
+  // TRD §2: fail to a clear "unsupported trace" message rather than a stack
+  // trace when the format is outside what's been verified to work (D-014/
+  // D-015/D-016). A trace with no version field at all is not rejected here —
+  // that's a "can't tell" case, not a "known incompatible" one; downstream
+  // parsing failures (if any) already produce their own clear errors.
+  if (playwrightVersion && !isVersionSupported(playwrightVersion)) {
+    throw new Error(
+      `unsupported trace: ${path} (Playwright version ${playwrightVersion} is outside the supported range ` +
+        `${SUPPORTED_PLAYWRIGHT_RANGE.min}-${SUPPORTED_PLAYWRIGHT_RANGE.max})`,
+    );
+  }
   const sdkLanguage = getStr(contextOptions, 'sdkLanguage');
   const traceTitle = getStr(contextOptions, 'title');
 
