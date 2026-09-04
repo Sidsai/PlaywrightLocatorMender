@@ -16,7 +16,7 @@ type Tree = unknown[];
 export function mutateM8(snapshot: unknown, seed: number): MutationResult {
   const mutated = clone(snapshot);
   const target = pickTarget(mutated, seed);
-  if (!target) throw new Error('mutateM8: no element with an id attribute found in this snapshot');
+  if (!target) throw new Error('mutateM8: no plausible target element found in this snapshot');
 
   const t = target as Tree;
   const attrs = t[1] as Record<string, string>;

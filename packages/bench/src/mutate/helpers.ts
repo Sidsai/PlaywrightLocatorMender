@@ -35,15 +35,65 @@ export function collectElements(root: unknown): Tree[] {
   return out;
 }
 
-/** Deterministically picks a target element for mutation: an element with an `id`
- *  attribute, chosen by seededRandom over the sorted candidate list so the same seed
- *  always picks the same element regardless of object key iteration order. */
+/**
+ * Deterministically picks a target element for mutation, preferring an element
+ * with a real `id` attribute (sorted by id, then chosen by seededRandom, so the
+ * same seed always picks the same element regardless of object key order).
+ *
+ * FALLBACK, found via Task 32's real corpus build: two of the six DOM-idiom
+ * fixtures (utility-css.html, css-in-js.html) were deliberately built WITHOUT id
+ * attributes — that's the entire point of those idioms (PRD §9: "utility CSS...no
+ * semantic hooks"). Requiring id unconditionally meant the mutation engine could
+ * generate zero cases from exactly the idioms it exists to stress-test, silently
+ * halving the corpus's effective size (found as "501 cases instead of >=1000" in
+ * the build test — see AI/DECISION.md D-022).
+ *
+ * The fallback returns any element with a `class` attribute or non-empty text — it
+ * does NOT fabricate an id. A page that never had an id-based hook genuinely has no
+ * realistic "id was renamed" drift scenario (M1), and mutateM1 (which reads
+ * `attrs.id` directly) correctly throws for such a target — engine.ts's own
+ * same-class-then-other-class retry logic (D-021) already handles falling through
+ * to a class that DOES apply, e.g. M2 (class swap) or M3/M4 (structural, need
+ * neither id nor class). Classes that build an `#id`-based broken-selector string
+ * (M6, M7, M8) fall back to a class- or structural-selector when id is absent —
+ * see each file's own selector-construction logic.
+ */
 export function pickTarget(root: unknown, seed: number): Tree | undefined {
-  const withId = collectElements(root).filter((el) => typeof (el[1] as Record<string, unknown>)?.id === 'string');
-  if (withId.length === 0) return undefined;
-  withId.sort((a, b) => String((a[1] as Record<string, unknown>).id).localeCompare(String((b[1] as Record<string, unknown>).id)));
-  const idx = Math.floor(seededRandom(seed)() * withId.length);
-  return withId[idx];
+  const elements = collectElements(root);
+  const withId = elements.filter((el) => typeof (el[1] as Record<string, unknown>)?.id === 'string');
+
+  if (withId.length > 0) {
+    withId.sort((a, b) => String((a[1] as Record<string, unknown>).id).localeCompare(String((b[1] as Record<string, unknown>).id)));
+    const idx = Math.floor(seededRandom(seed)() * withId.length);
+    return withId[idx];
+  }
+
+  const withClass = elements.filter((el) => typeof (el[1] as Record<string, unknown>)?.class === 'string');
+  if (withClass.length > 0) {
+    withClass.sort((a, b) => String((a[1] as Record<string, unknown>).class).localeCompare(String((b[1] as Record<string, unknown>).class)));
+    const idx = Math.floor(seededRandom(seed)() * withClass.length);
+    return withClass[idx];
+  }
+
+  const withText = elements.filter((el) => el.slice(2).some((c) => typeof c === 'string' && (c as string).trim()));
+  if (withText.length > 0) {
+    const idx = Math.floor(seededRandom(seed)() * withText.length);
+    return withText[idx];
+  }
+
+  return undefined;
+}
+
+/** Builds the best available CSS-ish selector description for an element: id if
+ *  present, else its first class token, else undefined (caller should fall back to
+ *  a structural selector, as M3/M4 already do). Used by mutate functions (M6, M7,
+ *  M8) that need SOME selector string to report as "broken" but whose actual
+ *  mutation mechanism doesn't strictly require id. */
+export function bestSelector(target: Tree): string | undefined {
+  const attrs = target[1] as Record<string, string>;
+  if (attrs.id) return `#${attrs.id}`;
+  if (attrs.class) return `.${attrs.class.split(' ')[0]}`;
+  return undefined;
 }
 
 /** Marks a target element in place (mutates the passed tree) with TARGET_MARKER. */

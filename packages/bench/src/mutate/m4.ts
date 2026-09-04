@@ -10,7 +10,7 @@ type Tree = unknown[];
 export function mutateM4(snapshot: unknown, seed: number): MutationResult {
   const mutated = clone(snapshot);
   const target = pickTarget(mutated, seed);
-  if (!target) throw new Error('mutateM4: no element with an id attribute found in this snapshot');
+  if (!target) throw new Error('mutateM4: no plausible target element found in this snapshot');
   markTarget(target);
 
   const rand = seededRandom(seed + 2000);

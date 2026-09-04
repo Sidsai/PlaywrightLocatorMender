@@ -1,4 +1,4 @@
-import { clone, pickTarget } from './helpers.js';
+import { clone, pickTarget, bestSelector } from './helpers.js';
 import type { MutationResult } from './types.js';
 
 type Tree = unknown[];
@@ -12,9 +12,11 @@ type Tree = unknown[];
 export function mutateM7(snapshot: unknown, seed: number): MutationResult {
   const mutated = clone(snapshot);
   const target = pickTarget(mutated, seed);
-  if (!target) throw new Error('mutateM7: no element with an id attribute found in this snapshot');
+  if (!target) throw new Error('mutateM7: no plausible target element found in this snapshot');
 
-  const originalSelector = `#${(target[1] as Record<string, string>).id}`;
+  // bestSelector falls back to a class selector when no id exists (D-022) —
+  // deletion never depended on id as a mutation mechanism anyway.
+  const originalSelector = bestSelector(target) ?? `${(target[0] as string).toLowerCase()}`;
 
   (function removeFromParent(node: unknown): boolean {
     if (!Array.isArray(node) || typeof node[0] !== 'string') return false;
