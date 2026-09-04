@@ -14,3 +14,5 @@ __pycache__/
 # Playwright
 test-results/
 playwright-report/
+# Raw fixture-suite trace output — versioned copies live in fixtures/traces/ instead
+fixtures/java-suite/traces/

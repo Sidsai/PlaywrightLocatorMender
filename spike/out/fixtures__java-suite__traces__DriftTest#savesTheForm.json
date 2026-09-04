@@ -1,0 +1,289 @@
+{
+  "entries": [
+    "trace.trace",
+    "trace.network",
+    "resources/page@4cee5f5203484cf610803a5ed279889e-1788523112474.jpeg",
+    "resources/page@4cee5f5203484cf610803a5ed279889e-1788523112503.jpeg",
+    "resources/page@4cee5f5203484cf610803a5ed279889e-1788523112528.jpeg",
+    "resources/34271ad2deeb8b94dcb85d69d69c0f011ba0e4c1.html",
+    "trace.stacks",
+    "resources/src@928a342744a6e7840864382ce7f4e446ef630ad1.txt"
+  ],
+  "checks": {
+    "hasSelector": true,
+    "hasError": true,
+    "hasApiName": true,
+    "hasSnapshot": true,
+    "hasTitle": true,
+    "hasSdkLanguage": true
+  },
+  "types": [
+    {
+      "type": "context-options",
+      "count": 1,
+      "keys": [
+        "version",
+        "type",
+        "origin",
+        "browserName",
+        "options",
+        "platform",
+        "wallTime",
+        "monotonicTime",
+        "sdkLanguage",
+        "testIdAttributeName",
+        "title"
+      ],
+      "sample": {
+        "version": 7,
+        "type": "context-options",
+        "origin": "library",
+        "browserName": "chromium",
+        "options": {
+          "acceptDownloads": "accept",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "platform": "win32",
+        "wallTime": 1788523112444,
+        "monotonicTime": 1521.204,
+        "sdkLanguage": "java",
+        "testIdAttributeName": "data-testid",
+        "title": "DriftTest#savesTheForm"
+      }
+    },
+    {
+      "type": "before",
+      "count": 2,
+      "keys": [
+        "type",
+        "callId",
+        "startTime",
+        "apiName",
+        "class",
+        "method",
+        "params",
+        "pageId",
+        "beforeSnapshot"
+      ],
+      "sample": {
+        "type": "before",
+        "callId": "call@24",
+        "startTime": 1570.4650000000001,
+        "apiName": "Frame.click",
+        "class": "Frame",
+        "method": "click",
+        "params": {
+          "strict": true,
+          "timeout": 3000,
+          "selector": "#save-btn-RENAMED"
+        },
+        "pageId": "page@4cee5f5203484cf610803a5ed279889e",
+        "beforeSnapshot": "before@call@24"
+      }
+    },
+    {
+      "type": "frame-snapshot",
+      "count": 4,
+      "keys": [
+        "type",
+        "snapshot"
+      ],
+      "sample": {
+        "type": "frame-snapshot",
+        "snapshot": {
+          "callId": "call@22",
+          "snapshotName": "after@call@22",
+          "pageId": "page@4cee5f5203484cf610803a5ed279889e",
+          "frameId": "frame@cc845fdd2f93ddb8de2af13c3da680b3",
+          "frameUrl": "file:///D:/Project/Mender/fixtures/pages/semantic.html",
+          "doctype": "html",
+          "html": [
+            "HTML",
+            {
+              "lang": "en"
+            },
+            [
+              "HEAD",
+              {},
+              [
+                "BASE",
+                {
+                  "href": "file:///D:/Project/Mender/fixtures/pages/semantic.html"
+                }
+              ],
+              "\n  ",
+              [
+                "META",
+                {
+                  "charset": "utf-8"
+                }
+              ],
+              "\n  ",
+              [
+                "TITLE",
+                {},
+                "Semantic HTML — Login"
+              ],
+              "\n"
+            ],
+            "\n",
+            [
+              "BODY",
+              {},
+              "\n  ",
+              [
+                "MAIN",
+                {},
+                "\n    ",
+                [
+                  "H1",
+                  {},
+                  "Sign in"
+                ],
+                "\n    ",
+                [
+                  "FORM",
+                  {
+                    "aria-label": "Login form"
+                  },
+                  "\n      ",
+                  [
+                    "LABEL",
+                    {
+                      "for": "username"
+                    },
+                    "Username"
+                  ],
+                  "\n      ",
+                  [
+                    "INPUT",
+                    {
+                      "__playwright_value_": "",
+                      "id": "username",
+                      "name": "username",
+                      "type": "text",
+                      "autocomplete": "username"
+                    }
+                  ],
+                  "\n\n      ",
+                  [
+                    "LABEL",
+                    {
+                      "for": "password"
+                    },
+                    "Password"
+                  ],
+                  "\n      ",
+                  [
+                    "INPUT",
+                    {
+                      "__playwright_value_": "",
+                      "id": "password",
+                      "name": "password",
+                      "type": "password",
+                      "autocomplete": "current-password"
+                    }
+                  ],
+                  "\n\n      ",
+                  [
+                    "BUTTON",
+                    {
+                      "id": "save-btn",
+                      "type": "submit"
+                    },
+                    "Save changes"
+                  ],
+                  "\n      ",
+                  [
+                    "BUTTON",
+                    {
+                      "id": "cancel-btn",
+                      "type": "button"
+                    },
+                    "Cancel"
+                  ],
+                  "\n    "
+                ],
+                "\n  "
+              ],
+              "\n\n\n"
+            ]
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "timestamp": 1567.742,
+          "wallTime": 1788523112489,
+          "collectionTime": 3,
+          "resourceOverrides": [],
+          "isMainFrame": true
+        }
+      }
+    },
+    {
+      "type": "log",
+      "count": 2,
+      "keys": [
+        "type",
+        "callId",
+        "time",
+        "message"
+      ],
+      "sample": {
+        "type": "log",
+        "callId": "call@22",
+        "time": 1534.471,
+        "message": "navigating to \"file:///D:/Project/Mender/fixtures/pages/semantic.html\", waiting until \"load\""
+      }
+    },
+    {
+      "type": "screencast-frame",
+      "count": 3,
+      "keys": [
+        "type",
+        "pageId",
+        "sha1",
+        "width",
+        "height",
+        "timestamp",
+        "frameSwapWallTime"
+      ],
+      "sample": {
+        "type": "screencast-frame",
+        "pageId": "page@4cee5f5203484cf610803a5ed279889e",
+        "sha1": "page@4cee5f5203484cf610803a5ed279889e-1788523112474.jpeg",
+        "width": 1280,
+        "height": 720,
+        "timestamp": 1551.5140000000001,
+        "frameSwapWallTime": 1788523112468.584
+      }
+    },
+    {
+      "type": "after",
+      "count": 2,
+      "keys": [
+        "type",
+        "callId",
+        "endTime",
+        "result",
+        "afterSnapshot",
+        "error"
+      ],
+      "sample": {
+        "type": "after",
+        "callId": "call@24",
+        "endTime": 4573.007,
+        "error": {
+          "message": "Timeout 3000ms exceeded.",
+          "stack": "TimeoutError: Timeout 3000ms exceeded.\n    at ProgressController.run (C:\\Users\\sid78\\AppData\\Local\\Temp\\playwright-java-17446520065060403879\\package\\lib\\server\\progress.js:78:26)\n    at Frame.click (C:\\Users\\sid78\\AppData\\Local\\Temp\\playwright-java-17446520065060403879\\package\\lib\\server\\frames.js:1013:23)\n    at FrameDispatcher.click (C:\\Users\\sid78\\AppData\\Local\\Temp\\playwright-java-17446520065060403879\\package\\lib\\server\\dispatchers\\frameDispatcher.js:157:30)\n    at FrameDispatcher._handleCommand (C:\\Users\\sid78\\AppData\\Local\\Temp\\playwright-java-17446520065060403879\\package\\lib\\server\\dispatchers\\dispatcher.js:94:40)\n    at DispatcherConnection.dispatch (C:\\Users\\sid78\\AppData\\Local\\Temp\\playwright-java-17446520065060403879\\package\\lib\\server\\dispatchers\\dispatcher.js:361:39)",
+          "name": "TimeoutError"
+        },
+        "afterSnapshot": "after@call@24"
+      }
+    }
+  ]
+}
