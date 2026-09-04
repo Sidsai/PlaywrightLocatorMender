@@ -1,14 +1,39 @@
 {
   "name": "playwright-mender",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.1.0",
+  "description": "Self-healing locator repair for Playwright suites — proposes a corrected selector from a failed run's trace.zip, for a human to approve.",
   "type": "module",
   "bin": {
-    "playwright-mender": "./dist/index.js"
+    "playwright-mender": "dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "playwright",
+    "testing",
+    "locator",
+    "selector",
+    "self-healing",
+    "test-repair",
+    "e2e"
+  ],
+  "author": "G. Sai Siddharth",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sidsai/PlaywrightLocatorMender.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/Sidsai/PlaywrightLocatorMender#readme",
+  "bugs": {
+    "url": "https://github.com/Sidsai/PlaywrightLocatorMender/issues"
+  },
+  "engines": {
+    "node": ">=20.18.0"
   },
   "dependencies": {
-    "@mender/trace": "*",
-    "@mender/core": "*",
     "glob": "^11.0.0"
   }
 }

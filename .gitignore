@@ -16,3 +16,8 @@ test-results/
 playwright-report/
 # Raw fixture-suite trace output — versioned copies live in fixtures/traces/ instead
 fixtures/java-suite/traces/
+# Working docs — local only from v1 onward (Task 70a). Was tracked in git during
+# development for a real decision-log history; that history was removed via
+# git filter-repo before the first public push (per D-001a's plan, executed at
+# the user's explicit direction — nothing secret was ever written here).
+AI/
