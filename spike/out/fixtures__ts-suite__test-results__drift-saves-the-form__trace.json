@@ -1,0 +1,371 @@
+{
+  "entries": [
+    "resources/src@4f3d79dc075054290339c87d8f2c01ad31b4b734.txt",
+    "resources/1540be870d116204cb3929b00a3edd5217fdc5cb",
+    "test.trace",
+    "0-trace.trace",
+    "0-trace.network",
+    "resources/page@ab9492d2cff39e36a699747754982668-1788522575729.jpeg",
+    "resources/page@ab9492d2cff39e36a699747754982668-1788522575786.jpeg",
+    "resources/page@ab9492d2cff39e36a699747754982668-1788522575802.jpeg",
+    "resources/34271ad2deeb8b94dcb85d69d69c0f011ba0e4c1.html",
+    "0-trace.stacks"
+  ],
+  "checks": {
+    "hasSelector": true,
+    "hasError": true,
+    "hasApiName": true,
+    "hasSnapshot": true,
+    "hasTitle": true,
+    "hasSdkLanguage": true
+  },
+  "types": [
+    {
+      "type": "context-options",
+      "count": 2,
+      "keys": [
+        "version",
+        "type",
+        "origin",
+        "browserName",
+        "playwrightVersion",
+        "options",
+        "platform",
+        "wallTime",
+        "monotonicTime",
+        "sdkLanguage",
+        "testTimeout",
+        "testIdAttributeName",
+        "contextId",
+        "title"
+      ],
+      "sample": {
+        "version": 8,
+        "type": "context-options",
+        "origin": "library",
+        "browserName": "chromium",
+        "playwrightVersion": "1.62.1",
+        "options": {
+          "noDefaultViewport": false,
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "ignoreHTTPSErrors": false,
+          "javaScriptEnabled": true,
+          "bypassCSP": false,
+          "locale": "en-US",
+          "offline": false,
+          "isMobile": false,
+          "hasTouch": false,
+          "colorScheme": "light",
+          "acceptDownloads": "accept",
+          "serviceWorkers": "allow",
+          "selectorEngines": [],
+          "testIdAttributeName": "data-testid"
+        },
+        "platform": "win32",
+        "wallTime": 1788522575371,
+        "monotonicTime": 2644.797,
+        "sdkLanguage": "javascript",
+        "testIdAttributeName": "data-testid",
+        "contextId": "browser-context@8945fb928f3d3beba25d8a751184a8fa",
+        "title": "drift.spec.ts:8 › saves the form"
+      }
+    },
+    {
+      "type": "before",
+      "count": 19,
+      "keys": [
+        "type",
+        "callId",
+        "stepId",
+        "startTime",
+        "class",
+        "method",
+        "title",
+        "params",
+        "stack",
+        "parentId",
+        "pageId",
+        "beforeSnapshot"
+      ],
+      "sample": {
+        "type": "before",
+        "callId": "pw:api@38",
+        "stepId": "pw:api@38",
+        "parentId": "fixture@37",
+        "startTime": 2632.325,
+        "class": "Test",
+        "method": "pw:api",
+        "title": "Create context",
+        "params": {
+          "selectorEngines": "[]",
+          "testIdAttributeName": "data-testid",
+          "acceptDownloads": "accept",
+          "bypassCSP": "false",
+          "colorScheme": "light",
+          "hasTouch": "false",
+          "ignoreHTTPSErrors": "false",
+          "isMobile": "false",
+          "javaScriptEnabled": "true",
+          "locale": "en-US",
+          "offline": "false",
+          "viewport": "Object",
+          "serviceWorkers": "allow",
+          "noDefaultViewport": "false",
+          "extraHTTPHeaders": "undefined",
+          "storageState": "undefined",
+          "reducedMotion": "undefined",
+          "forcedColors": "undefined",
+          "contrast": "undefined",
+          "clientCertificates": "undefined"
+        },
+        "stack": []
+      }
+    },
+    {
+      "type": "after",
+      "count": 19,
+      "keys": [
+        "type",
+        "callId",
+        "endTime",
+        "annotations",
+        "error",
+        "attachments",
+        "result",
+        "afterSnapshot"
+      ],
+      "sample": {
+        "type": "after",
+        "callId": "call@10",
+        "endTime": 6057.482,
+        "error": {
+          "message": "Timeout 3000ms exceeded.",
+          "stack": "TimeoutError: Timeout 3000ms exceeded.\n    at _ProgressController.run (D:\\Project\\Mender\\fixtures\\ts-suite\\node_modules\\playwright-core\\lib\\coreBundle.js:12135:32)\n    at DispatcherConnection.dispatch (D:\\Project\\Mender\\fixtures\\ts-suite\\node_modules\\playwright-core\\lib\\coreBundle.js:18775:44)",
+          "name": "TimeoutError"
+        },
+        "afterSnapshot": "after@call@10"
+      }
+    },
+    {
+      "type": "error",
+      "count": 1,
+      "keys": [
+        "type",
+        "message",
+        "stack"
+      ],
+      "sample": {
+        "type": "error",
+        "message": "TimeoutError: locator.click: Timeout 3000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#save-btn-RENAMED')\u001b[22m\n",
+        "stack": [
+          {
+            "file": "D:\\Project\\Mender\\fixtures\\ts-suite\\tests\\drift.spec.ts",
+            "line": 12,
+            "column": 43
+          }
+        ]
+      }
+    },
+    {
+      "type": "event",
+      "count": 1,
+      "keys": [
+        "type",
+        "time",
+        "class",
+        "method",
+        "params"
+      ],
+      "sample": {
+        "type": "event",
+        "time": 2961.044,
+        "class": "BrowserContext",
+        "method": "page",
+        "params": {
+          "pageId": "page@ab9492d2cff39e36a699747754982668"
+        }
+      }
+    },
+    {
+      "type": "frame-snapshot",
+      "count": 4,
+      "keys": [
+        "type",
+        "snapshot"
+      ],
+      "sample": {
+        "type": "frame-snapshot",
+        "snapshot": {
+          "callId": "call@8",
+          "snapshotName": "after@call@8",
+          "pageId": "page@ab9492d2cff39e36a699747754982668",
+          "frameId": "frame@958c616d8de69fef66d9f1ce03c17938",
+          "frameUrl": "file:///D:/Project/Mender/fixtures/pages/semantic.html",
+          "doctype": "html",
+          "html": [
+            "HTML",
+            {
+              "lang": "en"
+            },
+            [
+              "HEAD",
+              {},
+              [
+                "BASE",
+                {
+                  "href": "file:///D:/Project/Mender/fixtures/pages/semantic.html"
+                }
+              ],
+              "\n  ",
+              [
+                "META",
+                {
+                  "charset": "utf-8"
+                }
+              ],
+              "\n  ",
+              [
+                "TITLE",
+                {},
+                "Semantic HTML — Login"
+              ],
+              "\n"
+            ],
+            "\n",
+            [
+              "BODY",
+              {},
+              "\n  ",
+              [
+                "MAIN",
+                {},
+                "\n    ",
+                [
+                  "H1",
+                  {},
+                  "Sign in"
+                ],
+                "\n    ",
+                [
+                  "FORM",
+                  {
+                    "aria-label": "Login form"
+                  },
+                  "\n      ",
+                  [
+                    "LABEL",
+                    {
+                      "for": "username"
+                    },
+                    "Username"
+                  ],
+                  "\n      ",
+                  [
+                    "INPUT",
+                    {
+                      "__playwright_value_": "",
+                      "id": "username",
+                      "name": "username",
+                      "type": "text",
+                      "autocomplete": "username"
+                    }
+                  ],
+                  "\n\n      ",
+                  [
+                    "LABEL",
+                    {
+                      "for": "password"
+                    },
+                    "Password"
+                  ],
+                  "\n      ",
+                  [
+                    "INPUT",
+                    {
+                      "__playwright_value_": "",
+                      "id": "password",
+                      "name": "password",
+                      "type": "password",
+                      "autocomplete": "current-password"
+                    }
+                  ],
+                  "\n\n      ",
+                  [
+                    "BUTTON",
+                    {
+                      "id": "save-btn",
+                      "type": "submit"
+                    },
+                    "Save changes"
+                  ],
+                  "\n      ",
+                  [
+                    "BUTTON",
+                    {
+                      "id": "cancel-btn",
+                      "type": "button"
+                    },
+                    "Cancel"
+                  ],
+                  "\n    "
+                ],
+                "\n  "
+              ],
+              "\n\n\n"
+            ]
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "timestamp": 3041.54,
+          "wallTime": 1788522575781,
+          "collectionTime": 5.900000035762787,
+          "resourceOverrides": [],
+          "isMainFrame": true
+        }
+      }
+    },
+    {
+      "type": "log",
+      "count": 2,
+      "keys": [
+        "type",
+        "callId",
+        "time",
+        "message"
+      ],
+      "sample": {
+        "type": "log",
+        "callId": "call@8",
+        "time": 2980.653,
+        "message": "navigating to \"file:///D:/Project/Mender/fixtures/pages/semantic.html\", waiting until \"load\""
+      }
+    },
+    {
+      "type": "screencast-frame",
+      "count": 3,
+      "keys": [
+        "type",
+        "pageId",
+        "sha1",
+        "width",
+        "height",
+        "timestamp",
+        "frameSwapWallTime"
+      ],
+      "sample": {
+        "type": "screencast-frame",
+        "pageId": "page@ab9492d2cff39e36a699747754982668",
+        "sha1": "page@ab9492d2cff39e36a699747754982668-1788522575786.jpeg",
+        "width": 1280,
+        "height": 720,
+        "timestamp": 3059.592,
+        "frameSwapWallTime": 1788522575797.7158
+      }
+    }
+  ]
+}
