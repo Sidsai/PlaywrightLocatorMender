@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { attributeOverlap, roleMatch, textSimilarity } from '../src/scoring/features.js';
+import { attributeOverlap, roleMatch, textSimilarity, structuralProximity } from '../src/scoring/features.js';
 import { parseSelector } from '../src/scoring/selector.js';
 import type { Candidate } from '../src/candidates/extract.js';
 
@@ -65,5 +65,20 @@ describe('textSimilarity', () => {
     const parsed = parseSelector('#save-btn'); // no text= in an id selector
     const candidate = mk({ accessibleName: 'Save changes' });
     expect(textSimilarity(parsed, candidate)).toBe(0);
+  });
+});
+
+describe('structuralProximity', () => {
+  it('scores a candidate at a similar tree depth higher than one far off', () => {
+    const parsed = parseSelector('form > button:nth-of-type(1)'); // depth 2
+    const nearby = mk({ fingerprint: 'HTML[0]>BODY[1]>FORM[1]>BUTTON[4]' }); // depth 4
+    const farAway = mk({ fingerprint: 'HTML[0]>BODY[1]>MAIN[0]>DIV[0]>DIV[0]>DIV[0]>SPAN[0]' }); // depth 7
+    expect(structuralProximity(parsed, nearby)).toBeGreaterThan(structuralProximity(parsed, farAway));
+  });
+
+  it('scores an exact depth match at 1', () => {
+    const parsed = parseSelector('a > b > c > d'); // depth 4
+    const sameDepth = mk({ fingerprint: 'W[0]>X[0]>Y[0]>Z[0]' }); // depth 4
+    expect(structuralProximity(parsed, sameDepth)).toBe(1);
   });
 });

@@ -13,10 +13,14 @@ export interface ParsedSelector {
   tag?: string;
   testId?: string;
   text?: string;
+  /** Number of "parent > child"-separated segments in the raw selector — a rough
+   *  proxy for how deep in the tree the element was, used by structuralProximity
+   *  (TRD §5 feature 4). A plain "#save-btn" has depth 1; "form > button" has 2. */
+  depth: number;
 }
 
 export function parseSelector(selector: string): ParsedSelector {
-  const result: ParsedSelector = { classes: [] };
+  const result: ParsedSelector = { classes: [], depth: selector.split('>').length };
 
   // Playwright text engine: text="..." or text='...'
   const textMatch = selector.match(/text=["']([^"']*)["']/);

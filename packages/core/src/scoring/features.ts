@@ -70,3 +70,20 @@ export function textSimilarity(selector: ParsedSelector, candidate: Candidate): 
   if (!selector.text || !candidate.accessibleName) return 0;
   return stringSimilarity(normalise(selector.text), normalise(candidate.accessibleName));
 }
+
+/**
+ * TRD §5 feature 4: "DOM distance from the nearest ancestor that still resolves."
+ * Since the broken selector no longer resolves to any live node, its exact former
+ * tree position is unknown — this approximates distance via tree DEPTH: how many
+ * ancestor levels the selector's own segment count implies, versus the candidate's
+ * fingerprint depth (segments separated by ">"). Two elements at similar depth in
+ * a similarly-structured page are more likely to be the same one than two at very
+ * different depths — an approximation, not exact ancestor-chain matching, and
+ * TRD's phrasing is honoured in spirit rather than literally implementable without
+ * the original (mutated-away) tree position.
+ */
+export function structuralProximity(selector: ParsedSelector, candidate: Candidate): number {
+  const candidateDepth = candidate.fingerprint.split('>').length;
+  const diff = Math.abs(selector.depth - candidateDepth);
+  return 1 / (1 + diff);
+}
