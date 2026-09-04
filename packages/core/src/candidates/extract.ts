@@ -8,6 +8,13 @@ export interface Candidate {
   text?: string;
   attrs: Record<string, string>; // stable-looking attributes only: id, name, data-testid, aria-*
   fingerprint: string;
+  /** Viewport-relative bounding box, when known. Not populated by extractCandidates
+   *  itself — the accessibility-reduced snapshot tree carries no layout info; a
+   *  future stage that has access to real render geometry can attach this. Filtering
+   *  (Task 17) treats an absent value as "unknown" and does not exclude on that basis
+   *  (fail open, per TRD §4: "drop elements outside the viewport region... where that
+   *  region is known"). */
+  bounds?: { x: number; y: number; width: number; height: number };
 }
 
 type SnapshotNode = unknown[]; // [tag: string, attrs: Record<string, unknown>, ...children]
