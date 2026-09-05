@@ -84,9 +84,10 @@ You refactor a component, a `data-testid` moves, three unrelated tests go red. R
 `playwright-mender repair --trace test-results/**/trace.zip --patch`, review the
 three one-line diffs it prints, commit. No manual trace-viewer archaeology.
 
-**CI comments on the PR that broke a test, with a ready-made fix.** Wire the
-[GitHub Action](#github-action) into your workflow with `mode: ci`. When a job fails
-from drift, Mender posts a comment on the associated pull request naming the broken
+**CI comments on the PR that broke a test, with a ready-made fix.** The intended
+design, once `--ci`/`mode: ci` wiring ships (see [Planned](#planned-not-yet-in-v010)):
+wire the [GitHub Action](#github-action) into your workflow and, when a job fails from
+drift, Mender posts a comment on the associated pull request naming the broken
 selector, the proposed fix, and its confidence — never failing the build a second
 time, never opening a competing PR. A human decides whether to take the suggestion.
 
@@ -97,11 +98,11 @@ call is made at all. If heuristics alone aren't accurate enough for your suite, 
 models) leave the machine, and only with explicit opt-in and redaction that has no
 bypass flag.
 
-**A maintainer opens a real PR instead of a silent local patch**, so the fix goes
-through normal code review: `--pr` commits the change to a branch and opens a pull
-request whose body carries the diff, the candidates Mender rejected, and why — never
-merged automatically, by design (there is no configuration option or code path that
-does it).
+**A maintainer opens a real PR instead of a silent local patch** — the intended design,
+once `--pr` wiring ships (see [Planned](#planned-not-yet-in-v010)): commit the change
+to a branch and open a pull request whose body carries the diff, the candidates Mender
+rejected, and why — never merged automatically (there is no configuration option or
+code path that does it).
 
 **A team benchmarks a competing locator-healing tool against Mender's own numbers.**
 `playwright-mender-bench` ships as a separate package: a mutation engine, a frozen
@@ -111,16 +112,17 @@ are measured the same way Mender's own are.
 ## CLI reference
 
 ```bash
-npx playwright-mender repair --trace <glob...> [--patch] [--pr] [--ci] [--json]
+npx playwright-mender repair --trace <glob...> [--patch] [--json]
 ```
 
 | Flag | Behaviour |
 |---|---|
 | *(none)* | Report-only (dry-run). Nothing is written. This is the default. |
 | `--patch` | Writes the proposed change to source and prints a diff. |
-| `--pr` | Commits to a branch and opens a pull request carrying the diff, rejected candidates, and reasoning. A human always merges it. |
-| `--ci` | Comments on the pull request associated with the failing run. Never fails the build a second time; never opens a separate PR. |
 | `--json` | Machine-readable output, available alongside any of the above. |
+
+`--pr` and `--ci` are designed (see [Planned](#planned-not-yet-in-v010)) but not yet
+wired into the CLI — passing them today has no effect.
 
 ## GitHub Action
 
@@ -128,11 +130,14 @@ npx playwright-mender repair --trace <glob...> [--patch] [--pr] [--ci] [--json]
 - uses: Sidsai/PlaywrightLocatorMender@v1
   with:
     trace: test-results/**/trace.zip
-    mode: ci # dry-run (default) | patch | pr | ci
+    mode: patch # dry-run (default) | patch
 ```
 
-See [`action.yml`](action.yml) for the full set of inputs, including provider-tier
-configuration for teams that want a reranker beyond the offline default.
+`mode: pr` and `mode: ci` are accepted as inputs but not yet functional (see
+[Planned](#planned-not-yet-in-v010)) — only `dry-run` and `patch` currently do
+anything. `action.yml` also accepts `provider-tier`/`provider-base-url`/
+`provider-model`/threshold inputs for a future reranker configuration story; like
+the CLI itself, these currently have no effect (see the reranker note below).
 
 ## Supported Playwright versions
 
@@ -176,6 +181,12 @@ API, even if a paid key is present in the environment. A paid tier is only ever 
 when it's the sole tier configured, meaning a human already made that choice
 explicitly.
 
+Tiers 1–3's logic (redaction, the tier ladder, calibration, ambiguity escalation, the
+two-gate decision) is implemented and unit-tested in isolation, but is **not yet
+wired into the CLI** — `playwright-mender repair` only ever runs tier 0 today, so
+configuring a provider currently has no effect. See
+[Planned](#planned-not-yet-in-v010).
+
 ## Privacy
 
 - **Offline heuristic mode sends nothing anywhere.** No network call is made.
@@ -214,30 +225,46 @@ for the full per-mutation-class breakdown. `confidenceThreshold` stays at a
 pre-corpus default of 0.85 until a reranker tier's own sweep re-derives it — that
 value only applies once a reranker is configured.
 
-Both thresholds are overridable in `mender.config.json`; the shipped default and the
-false-repair rate it was measured at are always printed alongside any override.
+Both thresholds are overridable programmatically (`RepairOptions`) today; a
+project-level config file is designed but not yet read by the CLI — see
+[Planned](#planned-not-yet-in-v010). The shipped default and the false-repair rate
+it was measured at are always printed alongside any override.
 
-## Configuration
+## Planned (not yet in v0.1.0)
 
-`mender.config.json` at the project root, all fields optional:
+These are designed, and in most cases already implemented as tested, isolated
+modules — they're just not yet wired into the CLI or Action. Listed here explicitly
+rather than presented as available, since v0.1.0 does not do any of this today.
 
-```jsonc
-{
-  "language": "java",              // auto-detected when absent
-  "buildTool": "maven",            // auto-detected from pom.xml/build.gradle
-  "provider": {
-    "baseUrl": "http://localhost:11434/v1",
-    "model": "qwen2.5:7b"
-  },
-  "offline": false,                // heuristics only, no network
-  "confidenceThreshold": 0.85,
-  "marginThreshold": 0.06,
-  "voteCount": 3,                  // ambiguity-escalation samples
-  "searchExclude": ["fixtures/**"]
-}
-```
+- **`--pr` / `--ci` CLI flags** and the GitHub Action's `mode: pr` / `mode: ci` —
+  open a real pull request with the diff and reasoning, or comment on the PR
+  associated with a failing CI run. The provider interfaces
+  (`PrProvider`/`CiCommentProvider`) exist and are tested against fakes; no
+  GitHub-backed implementation is wired to them yet.
+- **`mender.config.json`** project config file, all fields optional:
 
-Absent any provider configuration, Mender runs offline rather than erroring.
+  ```jsonc
+  {
+    "language": "java",              // auto-detected when absent
+    "buildTool": "maven",            // auto-detected from pom.xml/build.gradle
+    "provider": {
+      "baseUrl": "http://localhost:11434/v1",
+      "model": "qwen2.5:7b"
+    },
+    "offline": false,                // heuristics only, no network
+    "confidenceThreshold": 0.85,
+    "marginThreshold": 0.06,
+    "voteCount": 3,                  // ambiguity-escalation samples
+    "searchExclude": ["fixtures/**"]
+  }
+  ```
+
+  No loader for this file exists yet; the shape above is the intended format.
+  Absent any provider configuration, once implemented, Mender will run offline
+  rather than erroring — that fallback behavior already holds true today by default,
+  since no provider wiring exists at all yet.
+- **Reranker tiers 1–3** wired into the CLI — see the note under
+  "The reranker: free by default" above.
 
 ## The benchmark
 
